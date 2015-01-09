@@ -1,0 +1,14 @@
+{
+  "name": "pkgtrkr",
+  "version": "0.1.0",
+  "description": "Package tracking library.",
+  "main": "index.js",
+  "author": "Sébastien Castiel <sebastien.castiel@gmail.com>",
+  "license": "LGPL",
+  "dependencies": {
+    "cheerio": "^0.18.0",
+    "promise": "^6.0.1",
+    "request": "^2.51.0",
+    "tmp": "0.0.24"
+  }
+}
