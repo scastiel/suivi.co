@@ -1,0 +1,125 @@
+<!doctype html>
+<html>
+<head>
+	<title>Suivre mon colis</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap.min.css">
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.1/css/bootstrap-theme.min.css">
+	<link href='http://fonts.googleapis.com/css?family=Contrail+One' rel='stylesheet' type='text/css'>
+	<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400' rel='stylesheet' type='text/css'>
+	<style>
+		* {
+			color: #666666 !important;
+			font-family: 'Source Sans Pro', sans-serif;
+		}
+		body {
+			padding: 10px;
+			background-color: #eff2f3;
+		}
+		.main {
+			max-width: 600px;
+			margin: 0 auto;
+		}
+		.enterTrackingInfo {
+			text-align: center;
+			max-width: 400px;
+			margin: 0 auto;
+		}
+		.enterTrackingInfo label, .enterTrackingInfo input, .enterTrackingInfo select {
+			font-size: 20px;
+			font-weight: 300;
+		}
+		.enterTrackingInfo .form-group {
+			margin-bottom: 20px;
+		}
+		h1 {
+			font-family: 'Contrail One', cursive;
+			text-align: center;
+			font-size: 64px;
+			margin-bottom: 25px;
+		}
+		h1.small-title {
+			font-size: 35px;
+		}
+		.logo {
+			height: 50px;
+			vertical-align: baseline;
+			margin-bottom: -2px;
+			margin-right: 5px;
+		}
+		h1.small-title .logo {
+			height: 30px;
+		}
+		.inline-input {
+			display: inline-block;
+			width: auto;
+		}
+		#txtTrackingNumber {
+			text-align: center;
+		}
+
+		#trackingLinesSection {
+			margin-top: 20px;
+		}
+		.tracking-date {
+			display: inline-block;
+			float: left;
+		}
+
+	</style>
+</head>
+<body>
+
+	<div class="main">
+		<h1 class="small-title visible-xs-block">
+			<img src="logo.png" class="logo">
+			Suivre mon colis
+		</h1>
+		<h1 class="big-title hidden-xs">
+			<img src="logo.png" class="logo">
+			Suivre mon colis
+		</h1>
+
+		<section class="enterTrackingInfo">
+			<form role="form">
+				<div class="form-group">
+					<label for="txtTrackingNumber">Votre numéro de colis&nbsp;:</label>
+					<input type="text" class="form-control input-lg" name="trackingNumber" id="txtTrackingNumber" placeholder="12345-67890-A">
+				</div>
+				<div class="form-group">
+					<label for="selectCarrier">Transporteur&nbsp;:&nbsp;</label>
+					<select class="form-control inline-input" name="carrier" id="selectCarrier">
+						<option selected value="colissimo">Colissimo</option>
+						<option value="chronopost">Chronopost</option>
+						<option value="ups">UPS</option>
+					</select>
+				</div>
+				<button type="submit" class="btn btn-default btn-lg">Valider</button>
+			</form>
+		</section>
+
+		<section id="trackingLinesSection">
+			<ul class="list-group">
+				<li class="list-group-item row">
+					<span class="col-xs-6 col-sm-3 tracking-date">5 janv. à 12h17</span>
+					<span class="col-xs-6 col-sm-3 tracking-location">Rennes, France</span>
+					<span class="col-xs-12 col-sm-6 tracking-label">En attente de livraison par la Poste.</span>
+				</li>
+				<li class="list-group-item row">
+					<span class="col-xs-6 col-sm-3 tracking-date">2 janv. à 10h00</span>
+					<span class="col-xs-6 col-sm-3 tracking-location">Lille, France</span>
+					<span class="col-xs-12 col-sm-6 tracking-label">Colis pris en charge par le transporteur.</span>
+				</li>
+				<li class="list-group-item row">
+					<span class="col-xs-6 col-sm-3 tracking-date">31 déc. à 19h00</span>
+					<span class="col-xs-6 col-sm-3 tracking-location">Lille, France</span>
+					<span class="col-xs-12 col-sm-6 tracking-label">Colis prêt à être expédié.</span>
+				</li>
+			</ul>
+		</section>
+
+	</div>
+
+</body>	
+</html>
