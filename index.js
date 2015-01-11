@@ -1,13 +1,23 @@
 
 "use strict";
 
-var carriers = require('./lib/carriers');
+var CarrierFactory = require('./lib/carriers');
+var carrierFactory = new CarrierFactory();
 
 function usage() {
 	console.log(
 		"Usage: " + process.argv[0] + " " + process.argv[1] + " <carrier> <trackingNumber>\n" +
-		"Available carriers: " + Object.keys(carriers.all()).join(' ')
+		"Available carriers: " + Object.keys(carrierFactory.all()).join(' ')
 	);
+}
+
+if (process.argv.length == 3) {
+	var possibleCarriers = carrierFactory.guessFromTrackingNumber(process.argv[2])
+		.map(function (carrier) {
+			return carrier.code;
+		})
+	console.log("Possible carriers: " + possibleCarriers.join(' '));
+	process.exit(0);
 }
 
 if (process.argv.length < 4) {
@@ -15,7 +25,7 @@ if (process.argv.length < 4) {
 	process.exit(1);
 }
 
-var carrier = carriers.get(process.argv[2]);
+var carrier = carrierFactory.get(process.argv[2]);
 if (carrier === null) {
 	console.log("Unknown carrier: " + process.argv[2]);
 	usage();
