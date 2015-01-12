@@ -4,20 +4,20 @@
 	<title>Suivre mon colis</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.min.css">
-	<link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
+	<link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap.min.css">
+	<link rel="stylesheet" href="/bower_components/bootstrap/dist/css/bootstrap-theme.min.css">
 	<link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400|Contrail+One' rel='stylesheet' type='text/css'>
-	<link rel="stylesheet" href="style.css" type="text/css">
+	<link rel="stylesheet" href="/style.css" type="text/css">
 </head>
 <body>
 
 	<div class="main">
 		<h1 class="small-title visible-xs-block">
-			<img src="logo.png" class="logo">
+			<img src="/logo.png" class="logo">
 			Suivre mon colis
 		</h1>
 		<h1 class="big-title hidden-xs">
-			<img src="logo.png" class="logo">
+			<img src="/logo.png" class="logo">
 			Suivre mon colis
 		</h1>
 
@@ -25,21 +25,44 @@
 
 	</div>
 
-	<script src="bower_components/react/react-with-addons.js"></script>
-    <script src="bower_components/react/JSXTransformer.js"></script>
-    <script src="bower_components/jquery/dist/jquery.min.js"></script>
-    <script src="js/components.js" type="text/jsx"></script>
+	<script src="/bower_components/react/react-with-addons.js"></script>
+    <script src="/bower_components/react/JSXTransformer.js"></script>
+    <script src="/bower_components/jquery/dist/jquery.min.js"></script>
+    <script src="/js/components.js" type="text/jsx"></script>
 	<script type="text/jsx">
 
-		$(document).ready(function() {
+	var appComponent = React.render(
+		<App carriersSource="/api/carriers"
+		     packageTrackingSource="/api/track/:carrierCode/:trackingNumber"/>,
+		document.getElementById('app')
+	);
 
-			React.render(
-				<App carriersSource="/api/carriers"
-				     packageTrackingSource="/api/track/:carrierCode/:trackingNumber"/>,
-				document.getElementById('app')
-			);
-
+	var matches = document.location.pathname.match(/track\/([^\/]+)\/([^\/]+)/);
+	var carrierCode = null, trackingNumber = null;
+	if (matches && matches.length > 0) {
+		carrierCode = matches[1];
+		trackingNumber = matches[2];
+		appComponent.setState({
+			trackingNumber: trackingNumber,
+			carrierCode: carrierCode
 		});
+		appComponent.replaceHistory();
+		appComponent.track();
+	}
+
+	window.onpopstate = function (event) {
+		if (event.state) {
+			appComponent.setState(event.state);
+			//appComponent.track();
+		} else {
+			appComponent.setState({
+				trackingNumber: '',
+				carrierCode: null,
+				lines: [],
+				error: null
+			});
+		}
+	}
 
 	</script>
 

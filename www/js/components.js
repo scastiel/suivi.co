@@ -3,8 +3,6 @@ var TrackingNumberForm = React.createClass({
 	mixins: [ React.addons.LinkedStateMixin ],
 	getInitialState: function() {
 		return {
-			trackingNumber: '',
-			selectedCarrierCode: null,
 			carriers: []
 		}
 	},
@@ -12,12 +10,19 @@ var TrackingNumberForm = React.createClass({
 		this.setState({
 			carriers: carriers
 		});
-		this.state.selectedCarrierCode = carriers[0].code;
+		if (this.props.appComponent.state.carrierCode === null)
+			this.props.appComponent.state.carrierCode = carriers[0].code;
 	},
 	componentDidMount: function() {
 		$.getJSON(this.props.carriersSource).done(this.carriersLoaded).fail(function () {
 			console.log("Error loading carriers.");
 		});
+	},
+	handleTrackingNumberChange: function(event) {
+		this.props.appComponent.setState({ trackingNumber: event.target.value });
+	},
+	handleCarrierCodeChange: function(event) {
+		this.props.appComponent.setState({ carrierCode: event.target.value });
 	},
 	render: function() {
 		var carriersComponents = [];
@@ -25,24 +30,25 @@ var TrackingNumberForm = React.createClass({
 		for (var i in carriers) {
 			if (!carriers.hasOwnProperty(i)) continue;
 			var carrier = carriers[i];
-			carriersComponents.push(<option value={carrier.code}>{carrier.name}</option>)
+			carriersComponents.push(<option value={carrier.code} key={carrier.code}>{carrier.name}</option>)
 		}
 		return (
 			<form role="form">
 				<div className="form-group">
 					<label htmlFor="txtTrackingNumber">Votre numéro de colis&nbsp;:</label>
 					<input type="text" className="form-control input-lg" name="trackingNumber" id="txtTrackingNumber"
-						placeholder="12345-67890-A" valueLink={this.linkState('trackingNumber')}/>
+						placeholder="12345-67890-A" onChange={this.handleTrackingNumberChange}
+						value={this.props.appComponent.state.trackingNumber}/>
 				</div>
 				<div className="form-group">
 					<label htmlFor="selectCarrier">Transporteur&nbsp;:&nbsp;</label>
 					<select className="form-control inline-input" name="carrier" id="selectCarrier"
-						valueLink={this.linkState('selectedCarrierCode')}>
+						onChange={this.handleCarrierCodeChange} value={this.props.appComponent.state.carrierCode}>
 						{carriersComponents}
 					</select>
 				</div>
 				<button type="submit" className="btn btn-default btn-lg" onClick={this.props.onOkButtonClick}
-					disabled={this.state.trackingNumber !== '' && this.state.selectedCarrierCode !== null ? '' : 'disabled'}>
+					disabled={this.props.appComponent.state.trackingNumber !== '' && this.props.appComponent.state.carrierCode !== null ? '' : 'disabled'}>
 					Valider
 				</button>
 			</form>
@@ -67,9 +73,7 @@ var Line = React.createClass({
 var Lines = React.createClass({
 	getInitialState: function() {
 		return {
-			lines: [],
 			loading: false,
-			error: null
 		};
 	},
 	render: function() {
@@ -77,13 +81,13 @@ var Lines = React.createClass({
 			return (
 				<p className="loading">Chargement en cours...</p>
 			);
-		} else if (this.state.error !== null) {
+		} else if (this.props.appComponent.state.error !== null) {
 			return (
-				<p className="error">Une erreur s’est produite : {this.state.error}</p>
+				<p className="error">Une erreur s’est produite : {this.props.appComponent.state.error}</p>
 			);
 		} else {
 			var lineComponents = [];
-			var lines = this.state.lines;
+			var lines = this.props.appComponent.state.lines;
 			for (var i in lines) {
 				if (!lines.hasOwnProperty(i)) continue;
 				lineComponents.push(<Line line={lines[i]} key={i}/>);
@@ -98,22 +102,34 @@ var Lines = React.createClass({
 });
 
 var App = React.createClass({
-	handleOkButtonClick: function(event) {
-		event.preventDefault();
+	getInitialState: function() {
+		return {
+			trackingNumber: '',
+			carrierCode: null,
+			lines: [],
+			error: null
+		};
+	},
+	track: function () {
 		this.refs.linesComponent.setState({
-			loading: true,
+			loading: true
+		});
+		this.setState({
 			lines: [],
 			error: null
 		});
-		var trackingNumber = this.refs.trackingNumberFormComponent.state.trackingNumber;
-		var selectedCarrierCode = this.refs.trackingNumberFormComponent.state.selectedCarrierCode;
+
+		document.title = 'Suivre mon colis : ' + this.state.carrierCode + ' – ' + this.state.trackingNumber;
+
 		var uri = this.props.packageTrackingSource
-			.replace(':carrierCode', selectedCarrierCode)
-			.replace(':trackingNumber', trackingNumber);
+			.replace(':carrierCode', this.state.carrierCode)
+			.replace(':trackingNumber', this.state.trackingNumber);
 		$.getJSON(uri)
 			.done(function (lines) {
 				this.refs.linesComponent.setState({
-					loading: false,
+					loading: false
+				});
+				this.setState({
 					lines: lines,
 					error: null
 				});
@@ -122,21 +138,48 @@ var App = React.createClass({
 				if (xhr.responseJSON) {
 					var error = xhr.responseJSON.error;
 					this.refs.linesComponent.setState({
-						loading: false,
+						loading: false
+					});
+					this.setState({
 						error: error
 					});
 				}
-			}.bind(this));
+			}.bind(this))
+			.always(function () {
+				this.replaceHistory();
+			}.bind(this))
+	},
+	replaceHistory: function() {
+		history.replaceState(
+			this.state,
+			'',
+			'/track/' + this.state.carrierCode + '/' + this.state.trackingNumber
+		);
+	},
+	handleOkButtonClick: function(event) {
+		event && event.preventDefault();
+		this.track();
+		history.pushState(
+			this.state,
+			'',
+			'/track/' + this.state.carrierCode + '/' + this.state.trackingNumber
+		);
+	},
+	componentDidMount: function () {
+	    if (this.state.trackingNumber && this.state.carrierCode) {
+	     	this.handleOkButtonClick();
+	    }
 	},
 	render: function() {
 		return (
 			<div>
 				<section id="trackingNumberForm" className="enterTrackingInfo">
 					<TrackingNumberForm carriersSource={this.props.carriersSource} onOkButtonClick={this.handleOkButtonClick}
-						ref="trackingNumberFormComponent"/>
+						ref="trackingNumberFormComponent"
+						appComponent={this}/>
 				</section>
 				<section id="trackingLinesSection">
-					<Lines ref="linesComponent"/>
+					<Lines ref="linesComponent" appComponent={this}/>
 				</section>
 			</div>
 		);
