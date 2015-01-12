@@ -1,0 +1,55 @@
+* {
+	color: #666666 !important;
+	font-family: 'Source Sans Pro', sans-serif;
+}
+body {
+	padding: 10px;
+	background-color: #eff2f3;
+}
+.main {
+	max-width: 600px;
+	margin: 0 auto;
+}
+.enterTrackingInfo {
+	text-align: center;
+	max-width: 400px;
+	margin: 0 auto;
+}
+.enterTrackingInfo label, .enterTrackingInfo input, .enterTrackingInfo select {
+	font-size: 20px;
+	font-weight: 300;
+}
+.enterTrackingInfo .form-group {
+	margin-bottom: 20px;
+}
+h1 {
+	font-family: 'Contrail One', cursive;
+	text-align: center;
+	font-size: 64px;
+	margin-bottom: 25px;
+}
+h1.small-title {
+	font-size: 35px;
+}
+.logo {
+	height: 50px;
+	vertical-align: baseline;
+	margin-bottom: -2px;
+	margin-right: 5px;
+}
+h1.small-title .logo {
+	height: 30px;
+}
+.inline-input {
+	display: inline-block;
+	width: auto;
+}
+#txtTrackingNumber {
+	text-align: center;
+}
+
+#trackingLinesSection {
+	margin-top: 30px;
+	font-size: 14px;
+	font-weight: 300;
+}

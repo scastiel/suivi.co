@@ -5,6 +5,9 @@
   "main": "index.js",
   "author": "Sébastien Castiel <sebastien.castiel@gmail.com>",
   "license": "LGPL",
+  "scripts": {
+    "start": "node api/server.js"
+  },
   "dependencies": {
     "cheerio": "^0.18.0",
     "express": "^4.10.7",
