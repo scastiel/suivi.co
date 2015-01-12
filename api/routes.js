@@ -2,17 +2,23 @@
 "use strict";
 
 var express = require('express');
-var app = express();
+var api = express.Router();
 
 var CarrierFactory = require('./lib/carriers');
 var carrierFactory = new CarrierFactory();
 
-app.get('/guess-carrier/:trackingNumber', function (req, res, next) {
+api.get('/carriers', function (req, res, next) {
+	res.send(carrierFactory.all().map(function (carrier) {
+		return { code: carrier.code, name: carrier.name };
+	}));
+});
+
+api.get('/guess-carrier/:trackingNumber', function (req, res, next) {
 	var carriers = carrierFactory.guessFromTrackingNumber(req.params.trackingNumber);
 	res.send(carriers.map(function (carrier) { return carrier.code; }));
 });
 
-app.get('/track/:carrierCode/:trackingNumber', function (req, res, next) {
+api.get('/track/:carrierCode/:trackingNumber', function (req, res, next) {
 	var carrier = carrierFactory.get(req.params.carrierCode);
 	if (!carrier) {
 		res.status(500).send({ error: { message: "Unknown carrier: " + req.params.carrierCode } });
@@ -25,8 +31,4 @@ app.get('/track/:carrierCode/:trackingNumber', function (req, res, next) {
 	}
 });
 
-var server = app.listen(3000, function () {
-  var host = server.address().address
-  var port = server.address().port
-  console.log('Listening at http://%s:%s', host, port)
-});
+module.exports = api;

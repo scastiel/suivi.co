@@ -6,7 +6,7 @@
   "author": "Sébastien Castiel <sebastien.castiel@gmail.com>",
   "license": "LGPL",
   "scripts": {
-    "start": "node api/server.js"
+    "start": "node server.js"
   },
   "dependencies": {
     "cheerio": "^0.18.0",

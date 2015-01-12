@@ -21,51 +21,143 @@
 			Suivre mon colis
 		</h1>
 
-		<section class="enterTrackingInfo">
-			<form role="form">
-				<div class="form-group">
-					<label for="txtTrackingNumber">Votre numéro de colis&nbsp;:</label>
-					<input type="text" class="form-control input-lg" name="trackingNumber" id="txtTrackingNumber" placeholder="12345-67890-A">
-				</div>
-				<div class="form-group">
-					<label for="selectCarrier">Transporteur&nbsp;:&nbsp;</label>
-					<select class="form-control inline-input" name="carrier" id="selectCarrier">
-						<option selected value="colissimo">Colissimo</option>
-						<option value="chronopost">Chronopost</option>
-						<option value="ups">UPS</option>
-					</select>
-				</div>
-				<button type="submit" class="btn btn-default btn-lg">Valider</button>
-			</form>
-		</section>
-
-		<section id="trackingLinesSection">
-			<ul class="list-group">
-				<li class="list-group-item">
-					<div class="row">
-						<span class="col-xs-6 col-sm-3 tracking-date">5 janv. à 12h17</span>
-						<span class="col-xs-6 col-sm-3 tracking-location">Rennes, France</span>
-						<span class="col-xs-12 col-sm-6 tracking-label">En attente de livraison par la Poste.</span>
-					</div>
-				</li>
-				<li class="list-group-item">
-					<div class="row">
-						<span class="col-xs-6 col-sm-3 tracking-date">2 janv. à 10h00</span>
-						<span class="col-xs-6 col-sm-3 tracking-location">Lille, France</span>
-						<span class="col-xs-12 col-sm-6 tracking-label">Colis pris en charge par le transporteur.</span>
-					</div>
-				</li>
-				<li class="list-group-item">
-					<div class="row">
-						<span class="col-xs-6 col-sm-3 tracking-date">31 déc. à 19h00</span>
-						<span class="col-xs-6 col-sm-3 tracking-location">Lille, France</span>
-						<span class="col-xs-12 col-sm-6 tracking-label">Colis prêt à être expédié.</span>
-					</div>
-				</li>
-			</ul>
-		</section>
+		<div id="app"></div>
 
 	</div>
+
+	<script src="bower_components/react/react-with-addons.js"></script>
+    <script src="bower_components/react/JSXTransformer.js"></script>
+    <script src="bower_components/jquery/dist/jquery.min.js"></script>
+	<script type="text/jsx">
+
+		$(document).ready(function() {
+
+			var TrackingNumberForm = React.createClass({
+				mixins: [ React.addons.LinkedStateMixin ],
+				getInitialState: function() {
+					return {
+						trackingNumber: '',
+						selectedCarrierCode: null,
+						carriers: []
+					}
+				},
+				carriersLoaded: function(carriers) {
+					this.setState({
+						carriers: carriers
+					});
+					this.state.selectedCarrierCode = carriers[0].code;
+				},
+				componentDidMount: function() {
+					$.getJSON(this.props.carriersSource).done(this.carriersLoaded).fail(function () {
+						console.log("Error loading carriers.");
+					});
+				},
+				render: function() {
+					var carriersComponents = [];
+					var carriers = this.state.carriers;
+					for (var i in carriers) {
+						if (!carriers.hasOwnProperty(i)) continue;
+						var carrier = carriers[i];
+						carriersComponents.push(<option value={carrier.code}>{carrier.name}</option>)
+					}
+					return (
+						<form role="form">
+							<div className="form-group">
+								<label htmlFor="txtTrackingNumber">Votre numéro de colis&nbsp;:</label>
+								<input type="text" className="form-control input-lg" name="trackingNumber" id="txtTrackingNumber"
+									placeholder="12345-67890-A" valueLink={this.linkState('trackingNumber')}/>
+							</div>
+							<div className="form-group">
+								<label htmlFor="selectCarrier">Transporteur&nbsp;:&nbsp;</label>
+								<select className="form-control inline-input" name="carrier" id="selectCarrier"
+									valueLink={this.linkState('selectedCarrierCode')}>
+									{carriersComponents}
+								</select>
+							</div>
+							<button type="submit" className="btn btn-default btn-lg" onClick={this.props.onOkButtonClick}
+								disabled={this.state.trackingNumber !== '' && this.state.selectedCarrierCode !== null ? '' : 'disabled'}>
+								Valider
+							</button>
+						</form>
+					);
+				}
+			});
+
+			var Line = React.createClass({
+				render: function() {
+					return (
+						<li className="list-group-item">
+							<div className="row">
+								<span className="col-xs-6 col-sm-3 tracking-date">{this.props.line.date}</span>
+								<span className="col-xs-6 col-sm-3 tracking-location">{this.props.line.location}</span>
+								<span className="col-xs-12 col-sm-6 tracking-label">{this.props.line.label}</span>
+							</div>
+						</li>
+					);
+				}
+			});
+
+			var Lines = React.createClass({
+				updateLines: function (lines) {
+					this.setState({ lines: lines });
+				},
+				getInitialState: function() {
+					return {
+						lines: []
+					};
+				},
+				render: function() {
+					var lineComponents = [];
+					var lines = this.state.lines;
+					for (var i in lines) {
+						if (!lines.hasOwnProperty(i)) continue;
+						lineComponents.push(<Line line={lines[i]} key={i}/>);
+					}
+					return (
+						<ul className="list-group">
+							{lineComponents}
+						</ul>
+					);
+				}
+			});
+
+			var App = React.createClass({
+				handleOkButtonClick: function(event) {
+					event.preventDefault();
+					var trackingNumber = this.refs.trackingNumberFormComponent.state.trackingNumber;
+					var selectedCarrierCode = this.refs.trackingNumberFormComponent.state.selectedCarrierCode;
+					var uri = this.props.packageTrackingSource
+						.replace(':carrierCode', selectedCarrierCode)
+						.replace(':trackingNumber', trackingNumber);
+					$.getJSON(uri)
+						.done(function (lines) {
+							this.refs.linesComponent.updateLines(lines);
+						}.bind(this));
+				},
+				render: function() {
+					return (
+						<div>
+							<section id="trackingNumberForm" className="enterTrackingInfo">
+								<TrackingNumberForm carriersSource={this.props.carriersSource} onOkButtonClick={this.handleOkButtonClick}
+									ref="trackingNumberFormComponent"/>
+							</section>
+							<section id="trackingLinesSection">
+								<Lines ref="linesComponent"/>
+							</section>
+						</div>
+					);
+				}
+			});
+
+			React.render(
+				<App carriersSource="/api/carriers"
+				     packageTrackingSource="/api/track/:carrierCode/:trackingNumber"/>,
+				document.getElementById('app')
+			);
+
+		});
+
+	</script>
 
 </body>	
 </html>
