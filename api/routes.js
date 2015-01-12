@@ -21,12 +21,12 @@ api.get('/guess-carrier/:trackingNumber', function (req, res, next) {
 api.get('/track/:carrierCode/:trackingNumber', function (req, res, next) {
 	var carrier = carrierFactory.get(req.params.carrierCode);
 	if (!carrier) {
-		res.status(500).send({ error: { message: "Unknown carrier: " + req.params.carrierCode } });
+		res.status(400).send({ error: { message: "Unknown carrier: " + req.params.carrierCode } });
 	} else {
 		carrier.extractTrackingLines(req.params.trackingNumber).done(function (lines) {
 			res.send(lines);
 		}, function(error) {
-			res.status(500).send({ error: { message: error } });
+			res.status(400).send({ error: { message: error } });
 		});
 	}
 });
