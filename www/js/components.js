@@ -150,20 +150,12 @@ var App = React.createClass({
 			}.bind(this))
 	},
 	replaceHistory: function() {
-		history.replaceState(
-			this.state,
-			'',
-			'/track/' + this.state.carrierCode + '/' + this.state.trackingNumber
-		);
+		this.props.router.replaceHistory(this);
 	},
 	handleOkButtonClick: function(event) {
 		event && event.preventDefault();
 		this.track();
-		history.pushState(
-			this.state,
-			'',
-			'/track/' + this.state.carrierCode + '/' + this.state.trackingNumber
-		);
+		this.props.router.pushState(this);
 	},
 	componentDidMount: function () {
 	    if (this.state.trackingNumber && this.state.carrierCode) {
