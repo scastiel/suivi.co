@@ -5,6 +5,9 @@
   "main": "index.js",
   "author": "Sébastien Castiel <sebastien.castiel@gmail.com>",
   "license": "LGPL",
+  "engines": {
+    "node": "0.11.x"
+  },
   "scripts": {
     "start": "node server.js"
   },
