@@ -48,3 +48,5 @@ Router.prototype.route = function(pathname, appComponent) {
 		appComponent.track();
 	}
 }
+
+module.exports = Router;

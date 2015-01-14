@@ -8,13 +8,13 @@ var api = require('./api/routes.js');
 app.use('/api', api);
 
 var indexRoute = function (req,res){
-	res.sendfile(__dirname + '/www/index.html');
+	res.sendfile(__dirname + '/client/public/index.html');
 }
 
 app.get('/', indexRoute);
 app.get('/track/*', indexRoute);
 
-app.use(express.static('www'));
+app.use(express.static('client/public'));
 
 
 var server = app.listen(3000, function () {

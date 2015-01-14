@@ -7,7 +7,7 @@ var carrierFactory = new CarrierFactory();
 function usage() {
 	console.log(
 		"Usage: " + process.argv[0] + " " + process.argv[1] + " <carrier> <trackingNumber>\n" +
-		"Available carriers: " + Object.keys(carrierFactory.all()).join(' ')
+		"Available carriers: " + carrierFactory.all().map(function(carrier) { return carrier.code; }).join(' ')
 	);
 }
 
