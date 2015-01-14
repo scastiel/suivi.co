@@ -76,4 +76,7 @@ module.exports = function(grunt) {
   grunt.registerTask('default', [
     'concat', 'browserify', 'sass', 'copy'
   ]);
+  grunt.registerTask('heroku', [
+    'concat', 'browserify', 'sass', 'copy'
+  ]);
 };
