@@ -9,7 +9,8 @@
     "node": "0.11.x"
   },
   "scripts": {
-    "start": "node server.js"
+    "start": "node server.js",
+    "postinstall": "grunt ; (cd client ; bower install ; cd ..)"
   },
   "dependencies": {
     "cheerio": "^0.18.0",
