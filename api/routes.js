@@ -1,6 +1,7 @@
 
 "use strict";
 
+var fs = require('fs');
 var express = require('express');
 var api = express.Router();
 
@@ -24,6 +25,15 @@ api.get('/track/:carrierCode/:trackingNumber', function (req, res, next) {
 		res.status(400).send({ error: { message: "Unknown carrier: " + req.params.carrierCode } });
 	} else {
 		carrier.extractTrackingLines(req.params.trackingNumber).done(function (lines) {
+			for (var i in lines) {
+				for (var prop in lines[i]) {
+					if (!lines[i].hasOwnProperty(prop)) continue;
+					if (typeof lines[i][prop] === "object" && lines[i][prop].type === "image") {
+						lines[i][prop].content = "data:image/png;base64," + fs.readFileSync(lines[i][prop].src).toString('base64');
+						delete lines[i][prop].src;
+					}
+				}
+			}
 			res.send(lines);
 		}, function(error) {
 			res.status(400).send({ error: { message: error } });
