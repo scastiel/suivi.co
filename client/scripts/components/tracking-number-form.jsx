@@ -13,7 +13,7 @@ var TrackingNumberForm = React.createClass({
 		if (this.props.appComponent.state.carrierCode === null)
 			this.props.appComponent.state.carrierCode = carriers[0].code;
 	},
-	componentDidMount: function() {
+	componentWillMount: function() {
 		$.getJSON(this.props.carriersSource).done(this.carriersLoaded).fail(function () {
 			console.log("Error loading carriers.");
 		});

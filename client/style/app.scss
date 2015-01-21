@@ -1,9 +1,14 @@
 
 @import url("//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400|Contrail+One");
 
+@import 'login-form';
+
 * {
-	color: #666666 !important;
+	color: #666666;
 	font-family: 'Source Sans Pro', sans-serif;
+}
+.btn, .btn:active {
+	color: #666666;
 }
 body {
 	padding: 10px;

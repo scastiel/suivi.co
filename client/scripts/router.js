@@ -12,11 +12,15 @@ Router.prototype.replaceHistory = function(appComponent) {
 }
 
 Router.prototype.pushState = function(appComponent) {
+	var uri = '/';
+	if (appComponent.state.carrierCode && appComponent.state.trackingNumber) {
+		uri = '/track/' + appComponent.state.carrierCode + '/' + appComponent.state.trackingNumber;
+	}
 	history.pushState(
 		appComponent.state,
 		'',
-		'/track/' + appComponent.state.carrierCode + '/' + appComponent.state.trackingNumber
-	)
+		uri
+	);
 }
 
 Router.prototype.initPopState = function(appComponent) {

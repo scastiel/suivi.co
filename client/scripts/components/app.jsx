@@ -1,6 +1,6 @@
 
-var TrackingNumberForm = require('./tracking-number-form.jsx');
-var Lines = require('./lines.jsx');
+var PackageTracker = require('./package-tracker.jsx');
+var LoginForm = require('./login-form.jsx');
 
 var App = React.createClass({
 	getInitialState: function() {
@@ -8,74 +8,42 @@ var App = React.createClass({
 			trackingNumber: '',
 			carrierCode: null,
 			lines: [],
-			error: null
+			error: null,
+			auth: null
 		};
-	},
-	track: function () {
-		this.refs.linesComponent.setState({
-			loading: true
-		});
-		this.setState({
-			lines: [],
-			error: null
-		});
-
-		document.title = 'Suivre mon colis : ' + this.state.carrierCode + ' – ' + this.state.trackingNumber;
-
-		var uri = this.props.packageTrackingSource
-			.replace(':carrierCode', this.state.carrierCode)
-			.replace(':trackingNumber', this.state.trackingNumber);
-		$.getJSON(uri)
-			.done(function (lines) {
-				this.refs.linesComponent.setState({
-					loading: false
-				});
-				this.setState({
-					lines: lines,
-					error: null
-				});
-			}.bind(this))
-			.fail(function (xhr) {
-				if (xhr.responseJSON) {
-					var error = xhr.responseJSON.error;
-					this.refs.linesComponent.setState({
-						loading: false
-					});
-					this.setState({
-						error: error
-					});
-				}
-			}.bind(this))
-			.always(function () {
-				this.replaceHistory();
-			}.bind(this))
 	},
 	replaceHistory: function() {
 		this.props.router.replaceHistory(this);
 	},
-	handleOkButtonClick: function(event) {
-		event && event.preventDefault();
-		this.track();
+	pushHistory: function() {
 		this.props.router.pushState(this);
 	},
-	componentDidMount: function () {
-	    if (this.state.trackingNumber && this.state.carrierCode) {
-	     	this.handleOkButtonClick();
-	    }
+	componentWillMount: function() {
+		if (this.state.auth) {
+			var expireDate = new Date(this.state.auth.expires);
+			var now = new Date();
+			if (now >= expireDate)
+				this.setState({ auth: null });
+		}
+	},
+	track: function() {
+		if (this.refs.packageTracker)
+			this.refs.packageTracker.track();
 	},
 	render: function() {
-		return (
-			<div>
-				<section id="trackingNumberForm" className="enterTrackingInfo">
-					<TrackingNumberForm carriersSource={this.props.carriersSource} onOkButtonClick={this.handleOkButtonClick}
-						ref="trackingNumberFormComponent"
-						appComponent={this}/>
-				</section>
-				<section id="trackingLinesSection">
-					<Lines ref="linesComponent" appComponent={this}/>
-				</section>
-			</div>
-		);
+		if (this.state.auth) {
+			return (
+				<PackageTracker
+					ref="packageTracker"
+					appComponent={this}
+					carriersSource={this.props.carriersSource + '?access_token=' + this.state.auth.token}
+					packageTrackingSource={this.props.packageTrackingSource + '?access_token=' + this.state.auth.token} />
+			);
+		} else {
+			return (
+				<LoginForm appComponent={this} loginPostUri={this.props.loginPostUri}/>
+			);
+		}
 	}
 });
 
