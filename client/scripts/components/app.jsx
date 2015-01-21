@@ -1,4 +1,5 @@
 
+var NavBar = require('./nav-bar.jsx');
 var PackageTracker = require('./package-tracker.jsx');
 var LoginForm = require('./login-form.jsx');
 
@@ -33,15 +34,21 @@ var App = React.createClass({
 	render: function() {
 		if (this.state.auth) {
 			return (
-				<PackageTracker
-					ref="packageTracker"
-					appComponent={this}
-					carriersSource={this.props.carriersSource + '?access_token=' + this.state.auth.token}
-					packageTrackingSource={this.props.packageTrackingSource + '?access_token=' + this.state.auth.token} />
+				<div>
+					<NavBar appComponent={this}/>
+					<PackageTracker
+						ref="packageTracker"
+						appComponent={this}
+						carriersSource={this.props.carriersSource + '?access_token=' + this.state.auth.token}
+						packageTrackingSource={this.props.packageTrackingSource + '?access_token=' + this.state.auth.token} />
+				</div>
 			);
 		} else {
 			return (
-				<LoginForm appComponent={this} loginPostUri={this.props.loginPostUri}/>
+				<div>
+					<NavBar appComponent={this}/>
+					<LoginForm appComponent={this} loginPostUri={this.props.loginPostUri}/>
+				</div>
 			);
 		}
 	}

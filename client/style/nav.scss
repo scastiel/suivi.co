@@ -1,0 +1,22 @@
+
+.main {
+	padding-top: 70px;
+}
+
+.navbar-inverse {
+	background-image: linear-gradient(to bottom,#666 0,#444 100%);
+	border-bottom-color: #444;
+}
+
+.navbar-brand {
+	font-family: 'Contrail One', cursive;
+	// font-size: 28px;
+
+	img {
+		height: 20px;
+	}
+
+	span {
+		@extend .navbar-brand;
+	}
+}
