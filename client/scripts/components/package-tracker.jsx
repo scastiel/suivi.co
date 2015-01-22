@@ -12,6 +12,12 @@ var PackageTracker = React.createClass({
 			error: null
 		});
 
+		var trackingData = {
+			user: this.props.appComponent.state.auth.user.username,
+			carrierCode: this.props.appComponent.state.carrierCode,
+			trackingNumber: this.props.appComponent.state.trackingNumber
+		};
+
 		document.title = 'Suivre mon colis : ' + this.props.appComponent.state.carrierCode + ' – ' + this.props.appComponent.state.trackingNumber;
 
 		var uri = this.props.packageTrackingSource
@@ -26,8 +32,12 @@ var PackageTracker = React.createClass({
 					lines: lines,
 					error: null
 				});
+
+				trackingData.success = true;
+
 			}.bind(this))
 			.fail(function (xhr) {
+
 				if (xhr.responseJSON) {
 					var error = xhr.responseJSON.error;
 					this.refs.linesComponent.setState({
@@ -37,9 +47,16 @@ var PackageTracker = React.createClass({
 						error: error
 					});
 				}
+
+				trackingData.success = false;
+				trackingData.error = xhr.responseJSON ? xhr.responseJSON.error : 'unknown';
+
 			}.bind(this))
 			.always(function () {
 				this.props.appComponent.replaceHistory();
+
+				console.log(trackingData);
+				this.props.appComponent.props.ga('send', 'event', 'tracker', 'track', trackingData);
 			}.bind(this))
 	},
 	handleOkButtonClick: function(event) {
