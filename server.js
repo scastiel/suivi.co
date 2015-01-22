@@ -14,18 +14,13 @@ app.use(bodyParser.urlencoded({
 app.set('port', (process.env.PORT || 3000));
 app.set('jwtTokenSecret', '+!5G:RY9*Y6RgQd%LDg(d244;|AqzM_lB/;KKS?}iMt?EZ=C1e1N|x-@i^k;;cv!');
 
-var needsToBeLoggedIn = require('./auth/jwtauth.js')(app);
-var needsToBeBetaUser = function(req, res, next) {
-	if (!req.user) return next();
-	if (req.user.beta) return next();
-	res.status(403).end('Unauthorized access to beta');
-}
+var jwtauth = require('./auth/jwtauth.js')(app);
 
 var authRoutes = require('./auth/routes.js')(app);
 app.use('/auth', authRoutes);
 
 var apiRoutes = require('./api/routes.js');
-app.use('/api', [ needsToBeLoggedIn, needsToBeBetaUser ], apiRoutes);
+app.use('/api', [ jwtauth.needsToBeLoggedIn, jwtauth.needsToBeBetaUser ], apiRoutes);
 
 var indexRoute = function (req,res){
 	res.sendfile(__dirname + '/client/public/index.html');
