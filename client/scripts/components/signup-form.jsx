@@ -39,15 +39,15 @@ var SignupForm = React.createClass({
 						<div className={this.state.signupSuccess ? "hidden" : ""}>
 							<div className="form-group">
 								<label htmlFor="signupInputEmail">Adresse e-mail</label>
-								<input ref="signupEmail" type="email" id="signupInputEmail" className="form-control" placeholder="Adresse e-mail" required autofocus defaultValue="toto@example.com"/>
+								<input ref="signupEmail" type="email" id="signupInputEmail" className="form-control" placeholder="Adresse e-mail" required autofocus/>
 							</div>
 							<div className="form-group">
 								<label htmlFor="signupInputPassword">Mot de passe</label>
-								<input ref="signupPassword" type="password" id="signupInputPassword" className="form-control" placeholder="Mot de passe" required defaultValue="toto"/>
+								<input ref="signupPassword" type="password" id="signupInputPassword" className="form-control" placeholder="Mot de passe" required/>
 							</div>
 							<div className="form-group">
 								<label htmlFor="signupInputPassword2">Mot de passe (vérification)</label>
-								<input ref="signupPassword2" type="password" id="signupInputPassword2" className="form-control" placeholder="Mot de passe" required defaultValue="toto"/>
+								<input ref="signupPassword2" type="password" id="signupInputPassword2" className="form-control" placeholder="Mot de passe" required/>
 							</div>
 							<div className="form-group">
 								<button disabled={ this.state.signingUp } className="btn btn-default center-block" type="submit">

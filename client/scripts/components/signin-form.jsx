@@ -35,11 +35,11 @@ var SigninForm = React.createClass({
 					<div className="panel-body">
 						<div className="form-group">
 							<label htmlFor="signinInputEmail">Adresse e-mail</label>
-							<input ref="signinEmail" type="email" id="signinInputEmail" className="form-control" placeholder="Adresse e-mail" required autofocus defaultValue="toto@example.com"/>
+							<input ref="signinEmail" type="email" id="signinInputEmail" className="form-control" placeholder="Adresse e-mail" required autofocus/>
 						</div>
 						<div className="form-group">
 							<label htmlFor="signinInputPassword">Mot de passe</label>
-							<input ref="signinPassword" type="password" id="signinInputPassword" className="form-control" placeholder="Mot de passe" required defaultValue="toto"/>
+							<input ref="signinPassword" type="password" id="signinInputPassword" className="form-control" placeholder="Mot de passe" required/>
 						</div>
 						<div className="form-group">
 							<button disabled={ this.state.signingIn } className="btn btn-default center-block" type="submit">
