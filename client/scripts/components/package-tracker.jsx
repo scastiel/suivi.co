@@ -55,8 +55,7 @@ var PackageTracker = React.createClass({
 			.always(function () {
 				this.props.appComponent.replaceHistory();
 
-				console.log(trackingData);
-				this.props.appComponent.props.ga('send', 'event', 'tracker', 'track', trackingData);
+				ga('send', 'event', 'tracker', 'track', trackingData);
 			}.bind(this))
 	},
 	handleOkButtonClick: function(event) {

@@ -1,10 +1,8 @@
 
 var App = require('./components/app.jsx');
 var Router = require('./router.js');
-var Analytics = require('./analytics.js');
 
 var router = new Router(window);
-var ga = Analytics.start(Config.analyticsId);
 
 var appComponent = React.render(
 	React.createElement(App, {
@@ -12,8 +10,7 @@ var appComponent = React.render(
 	    packageTrackingSource: "/api/track/:carrierCode/:trackingNumber",
 	    loginPostUri: "/auth/login",
 	    signupPostUri: "/auth/user",
-	    router: router,
-	    ga: ga
+	    router: router
 	}),
 	document.getElementById('app')
 );
