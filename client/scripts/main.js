@@ -9,6 +9,7 @@ var appComponent = React.render(
 		carriersSource: "/api/carriers",
 	    packageTrackingSource: "/api/track/:carrierCode/:trackingNumber",
 	    loginPostUri: "/auth/login",
+	    signupPostUri: "/auth/user",
 	    router: router
 	}),
 	document.getElementById('app')

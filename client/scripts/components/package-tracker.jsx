@@ -54,7 +54,7 @@ var PackageTracker = React.createClass({
 	},
 	render: function() {
 		return (
-			<div class="package-tracker">
+			<div className="package-tracker">
 				<section id="trackingNumberForm" className="enterTrackingInfo">
 					<TrackingNumberForm
 						carriersSource={this.props.carriersSource}

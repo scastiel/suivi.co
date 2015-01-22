@@ -47,7 +47,7 @@ var App = React.createClass({
 			return (
 				<div>
 					<NavBar appComponent={this}/>
-					<LoginForm appComponent={this} loginPostUri={this.props.loginPostUri}/>
+					<LoginForm appComponent={this} loginPostUri={this.props.loginPostUri} signupPostUri={this.props.signupPostUri}/>
 				</div>
 			);
 		}
