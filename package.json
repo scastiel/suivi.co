@@ -9,7 +9,7 @@
     "node": "0.11.x"
   },
   "scripts": {
-    "start": "node server.js",
+    "start": "node --harmony server.js",
     "postinstall": "cd client ; ../node_modules/bower/bin/bower install ; cd .."
   },
   "dependencies": {
