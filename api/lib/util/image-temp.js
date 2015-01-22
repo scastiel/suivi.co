@@ -4,8 +4,9 @@
 var tmp = require('tmp');
 var fs = require('fs');
 var request = require("request");
+var denodeify = require('denodeify');
 
-var createTempFile = Promise.denodeify(tmp.file);
+var createTempFile = denodeify(tmp.file);
 
 function saveImageToSpecificTempFile (url, path) {
 	return new Promise(function (fulfill, reject) {
