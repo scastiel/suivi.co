@@ -33,16 +33,29 @@ var App = React.createClass({
 	},
 	render: function() {
 		if (this.state.auth) {
-			return (
-				<div>
-					<NavBar appComponent={this}/>
-					<PackageTracker
-						ref="packageTracker"
-						appComponent={this}
-						carriersSource={this.props.carriersSource + '?access_token=' + this.state.auth.token}
-						packageTrackingSource={this.props.packageTrackingSource + '?access_token=' + this.state.auth.token} />
-				</div>
-			);
+			if (this.state.auth.user.beta) {
+				return (
+					<div>
+						<NavBar appComponent={this}/>
+						<PackageTracker
+							ref="packageTracker"
+							appComponent={this}
+							carriersSource={this.props.carriersSource + '?access_token=' + this.state.auth.token}
+							packageTrackingSource={this.props.packageTrackingSource + '?access_token=' + this.state.auth.token} />
+					</div>
+				);
+			} else {
+				return (
+					<div>
+						<NavBar appComponent={this}/>
+						<div className="well">
+							<p>Vous n'avez pas encore accès à la beta de <em>Suivre mon colis</em>.</p>
+							<p>Surveillez votre boîte mail, nous vous tiendrons informés dès que nous
+							invitons de nouveaux utilisateurs à utiliser notre service :-)</p>
+						</div>
+					</div>
+				);
+			}
 		} else {
 			return (
 				<div>
