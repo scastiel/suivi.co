@@ -27,10 +27,14 @@ var TrackingNumberForm = React.createClass({
 	render: function() {
 		var carriersComponents = [];
 		var carriers = this.state.carriers;
-		for (var i in carriers) {
-			if (!carriers.hasOwnProperty(i)) continue;
-			var carrier = carriers[i];
-			carriersComponents.push(<option value={carrier.code} key={carrier.code}>{carrier.name}</option>)
+		if (carriers.length > 0) {
+			for (var i in carriers) {
+				if (!carriers.hasOwnProperty(i)) continue;
+				var carrier = carriers[i];
+				carriersComponents.push(<option value={carrier.code} key={carrier.code}>{carrier.name}</option>)
+			}
+		} else {
+			carriersComponents.push(<option value="" key="null">Chargement...</option>)
 		}
 		return (
 			<form role="form">

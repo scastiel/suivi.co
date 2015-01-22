@@ -10,14 +10,18 @@ var App = React.createClass({
 			carrierCode: null,
 			lines: [],
 			error: null,
-			auth: null
+			auth: this.props.initialAuth
 		};
+	},
+	sendAnalyticsEvent: function() {
+		ga('send', 'pageview', document.location.pathname, { userId: this.state.auth ? this.state.auth.user.username : null });
 	},
 	replaceHistory: function() {
 		this.props.router.replaceHistory(this);
 	},
 	pushHistory: function() {
 		this.props.router.pushState(this);
+		this.sendAnalyticsEvent();
 	},
 	componentWillMount: function() {
 		if (this.state.auth) {
@@ -26,6 +30,9 @@ var App = React.createClass({
 			if (now >= expireDate)
 				this.setState({ auth: null });
 		}
+	},
+	componentDidMount: function() {
+		this.sendAnalyticsEvent();
 	},
 	track: function() {
 		if (this.refs.packageTracker)
