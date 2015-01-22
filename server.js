@@ -4,15 +4,15 @@ var app = express();
 var bodyParser = require('body-parser');
 var Db = require('./model/db.js');
 
-var db = new Db('mongodb://localhost:27017/suivremoncolis-dev');
+var db = new Db(process.env.MONGO_CONNECTION || 'mongodb://localhost:27017/suivremoncolis-dev');
 app.set('db', db);
 
 app.use(bodyParser.urlencoded({
   extended: true
-})); 
+}));
 
 app.set('port', (process.env.PORT || 3000));
-app.set('jwtTokenSecret', '+!5G:RY9*Y6RgQd%LDg(d244;|AqzM_lB/;KKS?}iMt?EZ=C1e1N|x-@i^k;;cv!');
+app.set('jwtTokenSecret', process.env.JWT_TOKEN_SECRET || '+!5G:RY9*Y6RgQd%LDg(d244;|AqzM_lB/;KKS?}iMt?EZ=C1e1N|x-@i^k;;cv!');
 
 var jwtauth = require('./auth/jwtauth.js')(app);
 
