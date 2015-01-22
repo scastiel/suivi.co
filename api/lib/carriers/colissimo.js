@@ -23,7 +23,7 @@ function extractLineDataFromTr (tr) {
 
 		imageTemp
 			.saveImagesToTempFiles([ dateImgUrl, labelImgUrl, locationImgUrl ], 'png')
-			.done(function (imgPaths) {
+			.then(function (imgPaths) {
 	    		var line = {
 	    			date: { type: 'image', src: imgPaths[0] },
 	    			label: { type: 'image', src: imgPaths[1] },
@@ -56,7 +56,7 @@ function extractTrackingLines (trackingNumber) {
 						return reject("Invalid tracking number.");
 		            Promise.all(trs.map(function(i, tr) {
 		            	return extractLineDataFromTr(tr);
-		            })).done(fulfill)
+		            })).then(fulfill)
 		        });
 			})
 			.on('error', reject);

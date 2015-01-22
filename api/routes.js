@@ -24,7 +24,7 @@ api.get('/track/:carrierCode/:trackingNumber', function (req, res, next) {
 	if (!carrier) {
 		res.status(400).send({ error: { message: "Unknown carrier: " + req.params.carrierCode } });
 	} else {
-		carrier.extractTrackingLines(req.params.trackingNumber).done(function (lines) {
+		carrier.extractTrackingLines(req.params.trackingNumber).then(function (lines) {
 			for (var i in lines) {
 				for (var prop in lines[i]) {
 					if (!lines[i].hasOwnProperty(prop)) continue;
