@@ -3,7 +3,6 @@
 
 var request = require("request").defaults({ jar: true });
 var $ = require('cheerio');
-var Promise = require('promise');
 
 var imageTemp = require('../util/image-temp').defaults({ request: request });
 

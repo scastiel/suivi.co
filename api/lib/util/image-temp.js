@@ -4,7 +4,6 @@
 var tmp = require('tmp');
 var fs = require('fs');
 var request = require("request");
-var Promise = require('promise');
 
 var createTempFile = Promise.denodeify(tmp.file);
 

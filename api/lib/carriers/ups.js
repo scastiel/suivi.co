@@ -3,7 +3,6 @@
 
 var request = require("request").defaults({ jar: true });
 var $ = require('cheerio');
-var Promise = require('promise');
 
 function visitHomePage () {
 	return new Promise(function (fulfill, reject) {
