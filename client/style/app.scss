@@ -4,6 +4,8 @@
 @import 'login-form';
 @import 'nav';
 @import 'loading';
+@import 'well';
+@import 'footer';
 
 * {
 	font-family: 'Source Sans Pro', sans-serif;
@@ -12,12 +14,12 @@ h1, .form-signin, .form-signup, .package-tracker, .btn, .btn:active, .well {
 	color: #666666;
 }
 body {
-	padding: 10px;
 	background-color: #eff2f3;
 }
 .main {
-	max-width: 600px;
+	max-width: 620px;
 	margin: 0 auto;
+	padding: 70px 10px 10px;
 }
 .enterTrackingInfo {
 	text-align: center;
@@ -44,6 +46,9 @@ h1 small {
 	font-size: 20px;
 	color: #999;
 	display: inline-block;
+}
+h1.small-title small {
+	font-size: 16px;
 }
 .logo {
 	height: 50px;
