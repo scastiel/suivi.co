@@ -4,6 +4,14 @@ var app = express();
 var bodyParser = require('body-parser');
 var Db = require('./model/db.js');
 
+app.use(function(req, res, next) {
+	if (req.headers.host.match(/^www/) !== null ) {
+		res.redirect((req.connection.encrypted ? 'https' : 'http') + '://' + req.headers.host.replace(/^www\./, '') + req.url);
+	} else {
+		next();     
+	}
+})
+
 var db = new Db(process.env.MONGO_CONNECTION || 'mongodb://localhost:27017/suivremoncolis-dev');
 app.set('db', db);
 

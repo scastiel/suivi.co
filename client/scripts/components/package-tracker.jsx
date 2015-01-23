@@ -12,8 +12,6 @@ var PackageTracker = React.createClass({
 			error: null
 		});
 
-		document.title = 'Suivre mon colis : ' + this.props.appComponent.state.carrierCode + ' – ' + this.props.appComponent.state.trackingNumber;
-
 		var uri = this.props.packageTrackingSource
 			.replace(':carrierCode', this.props.appComponent.state.carrierCode)
 			.replace(':trackingNumber', this.props.appComponent.state.trackingNumber);

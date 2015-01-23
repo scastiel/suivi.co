@@ -14,3 +14,7 @@ body {
   // background-color: #f5f5f5;
   text-align: center;
 }
+
+.addthis_sharing_toolbox, .addthis_sharing_toolbox > div {
+	display: inline !important;
+}
