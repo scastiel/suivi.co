@@ -3,6 +3,7 @@ var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
 var Db = require('./model/db.js');
+var basicAuth = require('basic-auth');
 
 app.use(function(req, res, next) {
 	if (req.headers.host.match(/^www/) !== null ) {
@@ -10,7 +11,18 @@ app.use(function(req, res, next) {
 	} else {
 		next();     
 	}
-})
+});
+
+if (process.env.HTTP_USER && process.env.HTTP_PASS) {
+	app.use(function(req, res, next) {
+		var user = basicAuth(req);
+		if (!user || user.name != process.env.HTTP_USER || user.pass != process.env.HTTP_PASS) {
+			res.set('WWW-Authenticate', 'Basic realm=Authorization Required');
+    		return res.sendStatus(401);
+		}
+		return next();
+	});
+}
 
 var db = new Db(process.env.MONGO_CONNECTION || 'mongodb://localhost:27017/suivremoncolis-dev');
 app.set('db', db);
