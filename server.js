@@ -2,7 +2,7 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
-var Db = require('./model/db.js');
+var mongoose = require('mongoose');
 var basicAuth = require('basic-auth');
 
 if (process.env.CANONICAL_HOST) {
@@ -33,8 +33,12 @@ if (process.env.HTTP_USER && process.env.HTTP_PASS) {
 	});
 }
 
-var db = new Db(process.env.MONGO_CONNECTION || 'mongodb://localhost:27017/suivremoncolis-dev');
-app.set('db', db);
+mongoose.connect(process.env.MONGO_CONNECTION || 'mongodb://localhost:27017/suivremoncolis-dev');
+process.on('SIGINT', function() {
+	mongoose.connection.close(function () {
+		process.exit(0);
+	});
+});
 
 app.use(bodyParser.urlencoded({
   extended: true
@@ -52,7 +56,7 @@ var apiRoutes = require('./api/routes.js');
 app.use('/api', [ jwtauth.needsToBeLoggedIn, jwtauth.needsToBeBetaUser ], apiRoutes);
 
 var indexRoute = function (req,res){
-	res.sendfile(__dirname + '/client/public/index.html');
+	res.sendFile(__dirname + '/client/public/index.html');
 };
 app.get('/', indexRoute);
 app.get('/track/*', indexRoute);

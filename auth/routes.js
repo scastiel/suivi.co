@@ -10,34 +10,23 @@ module.exports = function(app) {
 
 	var User = require('../model/user.js');
 
-	var db = app.get('db');
-
 	passport.serializeUser(function (user, done) {
 		done(null, user.id);
 	});
 
 	passport.deserializeUser(function (id, done) {
-		db.connectToDb().then(
-			function () {
-				User.findById(id, function (err, user) {
-					done(err, user);
-				});
-			}
-		).then(db.disconnectFromDb);
+		User.findById(id, function (err, user) {
+			done(err, user);
+		});
 	});
 
 	passport.use(new LocalStrategy(function (username, password, done) {
-		db.connectToDb()
-			.then(User.checkIfValidUser.bind(null, username, password))
+		User.checkIfValidUser(username, password)
 			.then(function (user) {
-				db.disconnectFromDb().then(function () {
-					done(null, user, true);
-				});
+				done(null, user, true);
 			})
 			.catch(function (err) {
-				db.disconnectFromDb().then(function () {
-					done(err);
-				});
+				done(err);
 			});
 	}));
 
@@ -45,17 +34,12 @@ module.exports = function(app) {
 	auth.use(passport.session());
 
 	auth.post('/user', function (req, res) {
-		db.connectToDb()
-			.then(User.checkIfUserExists.bind(null, req.body.email))
+		User.checkIfUserExists(req.body.email)
 			.then(User.createUser.bind(null, req.body.email, req.body.password))
 			.then(function (user) {
-				db.disconnectFromDb().then(function () {
-					res.status(201).send(user);
-				});
+				res.status(201).send(user);
 			}).catch(function (err) {
-				db.disconnectFromDb().then(function () {
-					res.status(400).send({ error: err.message });
-				});
+				res.status(400).send({ error: err.message });
 			});
 	});
 
