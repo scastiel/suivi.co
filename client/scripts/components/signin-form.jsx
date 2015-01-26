@@ -16,7 +16,7 @@ var SigninForm = React.createClass({
 			username: email,
 			password: password
 		}).done(function(data) {
-			sessionStorage.auth = JSON.stringify(data);
+			localStorage.auth = JSON.stringify(data);
 			this.setState({ signinError: null });
 			this.props.appComponent.setState({ auth: data });
 			this.props.appComponent.pushHistory();

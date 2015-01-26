@@ -13,6 +13,7 @@
     "postinstall": "cd client ; ../node_modules/bower/bin/bower install ; cd .."
   },
   "dependencies": {
+    "basic-auth": "^1.0.0",
     "bcrypt": "^0.8.0",
     "body-parser": "^1.10.1",
     "bower": "^1.3.12",

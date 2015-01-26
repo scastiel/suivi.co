@@ -5,8 +5,8 @@ var Router = require('./router.js');
 var router = new Router(window);
 
 var auth = null;
-if (sessionStorage.auth) {
-	auth = JSON.parse(sessionStorage.auth);
+if (localStorage.auth) {
+	auth = JSON.parse(localStorage.auth);
 }
 
 var appComponent = React.render(
