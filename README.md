@@ -2,7 +2,7 @@ Test tracking numbers:
 
   * Colissimo: `node api/track_cli.js colissimo 7C00010931103`
   * UPS: `node api/track_cli.js ups 1Z20V8546820013687`
-  * Chronopost: `node api/track_cli.js chronopost XY667554759JB`
+  * Chronopost: `node api/track_cli.js chronopost XY667554759JB` (other number: EM312352419KR)
 
 Start the API server: `npm start` or `DEBUG=express:* npm start`
 
