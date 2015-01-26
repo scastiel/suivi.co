@@ -5,13 +5,22 @@ var bodyParser = require('body-parser');
 var Db = require('./model/db.js');
 var basicAuth = require('basic-auth');
 
-app.use(function(req, res, next) {
-	if (req.headers.host.match(/^www/) !== null ) {
-		res.redirect((req.connection.encrypted ? 'https' : 'http') + '://' + req.headers.host.replace(/^www\./, '') + req.url);
-	} else {
-		next();     
-	}
-});
+if (process.env.CANONICAL_HOST) {
+	app.use(function(req, res, next) {
+		var canonicalHostParts = process.env.CANONICAL_HOST.split(':');
+		var host = canonicalHostParts[0];
+		var port = canonicalHostParts[1] || 80;
+		if (req.hostname !== host) {
+			var redirectUrl =
+				req.protocol + '://'
+				+ process.env.CANONICAL_HOST
+				+ req.originalUrl;
+			res.redirect(301, redirectUrl);
+		} else {
+			next();
+		}
+	});
+}
 
 if (process.env.HTTP_USER && process.env.HTTP_PASS) {
 	app.use(function(req, res, next) {
