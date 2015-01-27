@@ -16,13 +16,6 @@ var App = React.createClass({
 	sendAnalyticsEvent: function() {
 		ga('send', 'pageview', document.location.pathname, { userId: this.state.auth ? this.state.auth.user.username : null });
 	},
-	replaceHistory: function() {
-		this.props.router.replaceHistory(this);
-	},
-	pushHistory: function() {
-		this.props.router.pushState(this);
-		this.sendAnalyticsEvent();
-	},
 	componentWillMount: function() {
 		if (this.state.auth) {
 			var expireDate = new Date(this.state.auth.expires);

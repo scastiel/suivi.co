@@ -60,6 +60,7 @@ var indexRoute = function (req,res){
 };
 app.get('/', indexRoute);
 app.get('/track/*', indexRoute);
+app.get('/login', indexRoute);
 
 app.get('/config.js', function(req, res) {
 	var config = {

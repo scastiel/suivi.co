@@ -19,7 +19,6 @@ var SigninForm = React.createClass({
 			localStorage.auth = JSON.stringify(data);
 			this.setState({ signinError: null });
 			this.props.appComponent.setState({ auth: data });
-			this.props.appComponent.pushHistory();
 		}.bind(this)).fail(function(res) {
 			this.setState({ signinError: "Adresse e-mail ou mot de passe incorrect.", signingIn: false });
 		}.bind(this));

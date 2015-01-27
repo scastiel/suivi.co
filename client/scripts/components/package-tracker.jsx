@@ -36,14 +36,9 @@ var PackageTracker = React.createClass({
 					});
 				}
 			}.bind(this))
-			.always(function () {
-				this.props.appComponent.replaceHistory();
-			}.bind(this))
 	},
-	handleOkButtonClick: function(event) {
-		event && event.preventDefault();
+	handleOkButtonClick: function() {
 		this.track();
-		this.props.appComponent.pushHistory();
 	},
 	componentDidMount: function () {
 	    if (this.props.appComponent.state.trackingNumber && this.props.appComponent.state.carrierCode) {
@@ -60,7 +55,9 @@ var PackageTracker = React.createClass({
 						onOkButtonClick={this.handleOkButtonClick}
 						ref="trackingNumberFormComponent"
 						packageTracker={this}
-						appComponent={this.props.appComponent}/>
+						appComponent={this.props.appComponent}
+						initialCarrierCode={this.props.appComponent.state.carrierCode}
+						initialTrackingNumber={this.props.appComponent.state.trackingNumber}/>
 				</section>
 				<section id="trackingLinesSection">
 					<Lines ref="linesComponent"

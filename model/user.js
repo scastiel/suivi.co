@@ -49,7 +49,7 @@ userSchema.statics.checkIfUserExists = function(email) {
 
 userSchema.statics.createUser = function(email, password) {
 	return new Promise(function (resolve, reject) {
-		var newUser = new User({ username: email, email: email, password: password });
+		var newUser = new User({ username: email, email: email, password: password, beta: true });
 		newUser.save(function (err) {
 			if (err) {
 				reject(err);

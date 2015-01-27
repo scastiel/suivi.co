@@ -57,8 +57,7 @@ var SignupForm = React.createClass({
 							<p className={"text-danger" + (this.state.signupError ? "" : " hidden")}>{this.state.signupError}</p>
 						</div>
 						<div className={this.state.signupSuccess ? "" : "hidden"}>
-							<p>Merci pour votre inscription. Vous serez informé par e-mail dès que
-							nous ouvrirons l'accès à la beta à des utilisateurs supplémentaires.</p>
+							<p>Merci pour votre inscription. Vous pouvez maintenant vous connecter :)</p>
 						</div>
 					</div>
 				</div>
