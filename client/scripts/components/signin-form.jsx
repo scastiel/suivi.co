@@ -12,15 +12,13 @@ var SigninForm = React.createClass({
 		var email = this.refs.signinEmail.getDOMNode().value;
 		var password = this.refs.signinPassword.getDOMNode().value;
 		this.setState({ signingIn: true });
-		$.post(this.props.loginPostUri, {
-			username: email,
-			password: password
-		}).done(function(data) {
-			localStorage.auth = JSON.stringify(data);
-			this.setState({ signinError: null });
-			this.props.appComponent.setState({ auth: data });
-		}.bind(this)).fail(function(res) {
-			this.setState({ signinError: "Adresse e-mail ou mot de passe incorrect.", signingIn: false });
+		this.props.appComponent.signin(email, password, function(err, user) {
+			if (this.isMounted()) {
+				this.setState({
+					signingIn: false,
+					signinError: err
+				});
+			}
 		}.bind(this));
 	},
 

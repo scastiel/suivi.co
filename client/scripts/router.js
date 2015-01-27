@@ -33,17 +33,15 @@ Router.prototype.getAppStateFromContext = function getAppStateFromContext() {
 	};
 
 	var auth = localStorage.auth ? JSON.parse(localStorage.auth) : null;
-	if (auth)
+	if (auth) {
 		state.auth = auth;
 
-	var path = document.location.pathname;
-	var matches = path.match(/track\/([^\/]+)\/([^\/]+)/)
-	if (matches && matches.length > 0) {
-		state.trackingNumber = matches[2],
-		state.carrierCode = matches[1];
-	} else {
-		state.trackingNumber = '';
-		state.carrierCode = null;
+		var path = document.location.pathname;
+		var matches = path.match(/track\/([^\/]+)\/([^\/]+)/)
+		if (matches && matches.length > 0) {
+			state.trackingNumber = matches[2],
+			state.carrierCode = matches[1];
+		}
 	}
 
 	return state;

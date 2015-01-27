@@ -31,6 +31,20 @@ var App = React.createClass({
 		if (this.refs.packageTracker)
 			this.refs.packageTracker.track();
 	},
+	signin: function(email, password, callback) {
+		$.post(this.props.loginPostUri, {
+			username: email,
+			password: password
+		})
+		.done(function(data) {
+			localStorage.auth = JSON.stringify(data);
+			this.setState({ auth: data });
+			callback(null, data);
+		}.bind(this))
+		.fail(function(res) {
+			callback("Adresse e-mail ou mot de passe incorrect.", null);
+		}.bind(this));
+	},
 	render: function() {
 		if (this.state.auth) {
 			if (this.state.auth.user.beta) {
