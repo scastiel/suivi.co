@@ -24,13 +24,14 @@ function extractLineDataFromTr (tr) {
 		imageTemp
 			.saveImagesToTempFiles([ dateImgUrl, labelImgUrl, locationImgUrl ], 'png')
 			.then(function (imgPaths) {
-	    		var line = {
+				var line = {
 	    			date: { type: 'image', src: imgPaths[0] },
 	    			label: { type: 'image', src: imgPaths[1] },
 	    			location: {type: 'image', src: imgPaths[2] }
 	    		};
 	    		fulfill(line);
-	    	});
+	    	})
+	    	.catch(reject);
 	});
 }
 
@@ -49,14 +50,17 @@ function extractTrackingLines (trackingNumber) {
 		        });
 
 		        response.on('end', function() {
-		            var parsedHTML = $.load(body);
+		        	var parsedHTML = $.load(body);
 
 		            var trs = parsedHTML('#resultatSuivreDiv table > tbody > tr');
 					if (trs.length === 0)
 						return reject("Invalid tracking number.");
-		            Promise.all(trs.map(function(i, tr) {
-		            	return extractLineDataFromTr(tr);
-		            })).then(fulfill)
+					var promises = Array.prototype.map.call(trs, function(tr) {
+						return extractLineDataFromTr(tr);
+		            });
+		            Promise.all(promises).then(function(lines) {
+						fulfill(lines);
+					})
 		        });
 			})
 			.on('error', reject);

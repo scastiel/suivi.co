@@ -46,7 +46,7 @@ module.exports = function(app) {
 	auth.post('/login', function (req, res, next) {
 		passport.authenticate('local', { session: false }, function (err, user, info) {
 			if (user) {
-				var expires = moment().add('days', 7).valueOf();
+				var expires = moment().add(7, 'days').valueOf();
 				var token = jwt.encode({
 					iss: user.id,
 					exp: expires

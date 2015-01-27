@@ -3,7 +3,7 @@ var NavBar = React.createClass({
 
 	logout: function(event) {
 		event.preventDefault();
-		delete(sessionStorage.auth);
+		delete(localStorage.auth);
 		this.props.appComponent.setState({ auth: null });
 	},
 
