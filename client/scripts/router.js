@@ -1,56 +1,108 @@
 
-function Router(window) {
-	this.window = window;
+var Router = function(appComponent) {
+
+	this.appComponent = appComponent;
+
 }
 
-Router.prototype.replaceHistory = function(appComponent) {
-	this.window.history.replaceState(
-		appComponent.state,
-		'',
-		'/track/' + appComponent.state.carrierCode + '/' + appComponent.state.trackingNumber
-	);
-}
-
-Router.prototype.pushState = function(appComponent) {
-	var uri = '/';
-	if (appComponent.state.carrierCode && appComponent.state.trackingNumber) {
-		uri = '/track/' + appComponent.state.carrierCode + '/' + appComponent.state.trackingNumber;
-	}
-	history.pushState(
-		appComponent.state,
-		'',
-		uri
-	);
-}
-
-Router.prototype.initPopState = function(appComponent) {
-	this.window.onpopstate = function (event) {
-		if (event.state) {
-			appComponent.setState(event.state);
+Router.prototype.getPathFromAppState = function getPathFromAppState(state) {
+	var path;
+	if (!state.auth) {
+		path = '/login';
+		// if (document.location.pathname != path) {
+		// 	path += '?redirect=' + encodeURIComponent(document.location.pathname);
+		// }
+	} else {
+		if (state.trackingNumber && state.carrierCode) {
+			path = '/track/' + state.carrierCode + '/' + state.trackingNumber;
 		} else {
-			appComponent.setState({
-				trackingNumber: '',
-				carrierCode: null,
-				lines: [],
-				error: null
-			});
+			path = '/';
 		}
-	};
+	}
+	return path;
 }
 
-Router.prototype.route = function(pathname, appComponent) {
-	var matches = pathname.match(/track\/([^\/]+)\/([^\/]+)/);
-	var carrierCode = null, trackingNumber = null;
+Router.prototype.getAppStateFromContext = function getAppStateFromContext() {
+	
+	var state = {
+		trackingNumber: '',
+		carrierCode: null,
+		lines: [],
+		error: null,
+		auth: null
+	};
+
+	var auth = localStorage.auth ? JSON.parse(localStorage.auth) : null;
+	if (auth)
+		state.auth = auth;
+
+	var path = document.location.pathname;
+	var matches = path.match(/track\/([^\/]+)\/([^\/]+)/)
 	if (matches && matches.length > 0) {
-		carrierCode = matches[1];
-		trackingNumber = matches[2];
-		appComponent.setState({
-			trackingNumber: trackingNumber,
-			carrierCode: carrierCode
-		});
-		appComponent.replaceHistory();
-		appComponent.track();
+		state.trackingNumber = matches[2],
+		state.carrierCode = matches[1];
+	} else {
+		state.trackingNumber = '';
+		state.carrierCode = null;
 	}
+
+	return state;
+
+}
+
+Router.prototype._initAppComponentComponentWillUpdate = function() {
+	var oldAppComponent_ComponentWillUpdate = this.appComponent.componentWillUpdate;
+	this.appComponent.componentWillUpdate = function(nextProps, nextState) {
+		var path = this.getPathFromAppState(nextState);
+		if (path != document.location.pathname) {
+			history.pushState(
+				nextState,
+				'',
+				path
+			);
+		}
+		oldAppComponent_ComponentWillUpdate && oldAppComponent_ComponentWillUpdate(nextProps, nextState);
+	}.bind(this);
+}
+
+Router.prototype._initWindowOnPopState = function() {
+	window.onpopstate = function (event) {
+		var defaultState = this.getAppStateFromContext();
+		var nextState = event.state;
+		if (nextState) {
+			nextState.auth = defaultState.auth;
+		} else {
+			nextState = defaultState;
+		}
+		this.appComponent.setState(nextState);
+
+		var path = this.getPathFromAppState(nextState);
+		if (path != document.location.pathname) {
+			history.replaceState(
+				nextState,
+				'',
+				path
+			);
+		}
+	}.bind(this);
+}
+
+Router.prototype.startRouting = function() {
+
+	this._initAppComponentComponentWillUpdate(this.appComponent);
+
+	this._initWindowOnPopState(this.appComponent);
+
+	var state = this.getAppStateFromContext();
+	var path = this.getPathFromAppState(state);
+	if (path != document.location.pathname) {
+		history.replaceState(
+			this.appComponent.state,
+			'',
+			path
+		);
+	}
+	this.appComponent.setState(state);
 }
 
 module.exports = Router;
