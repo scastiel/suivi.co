@@ -12,20 +12,32 @@ var SignupForm = React.createClass({
 		event.preventDefault();
 		var email = this.refs.signupEmail.getDOMNode().value;
 		var password = this.refs.signupPassword.getDOMNode().value;
-		var password2 = this.refs.signupPassword.getDOMNode().value;
-		$.post(this.props.signupPostUri, {
-			email: email,
-			password: password
-		}).done(function(data) {
-			this.setState({ signupError: null, signupSuccess: true });
-		}.bind(this)).fail(function(res) {
-			var data = res.responseJSON;
-			if (data.error == "User already exists.") {
-				this.setState({ signupError: "Un utilisateur est déjà inscrit avec cette adresse e-mail.", signingUp: false });
-			} else {
-				this.setState({ signupError: "Une erreur s'est produite.", signingUp: false });
-			}
-		}.bind(this));
+		var password2 = this.refs.signupPassword2.getDOMNode().value;
+		if (password.length < 8) {
+			this.setState({ signupError: "Le mot de passe doit faire au moins 8 caractères." });
+		} else if (password != password2) {
+			this.setState({ signupError: "Les deux mots de passe ne correspondent pas." });
+		} else {
+			this.setState({ signingUp: true });
+			$.post(this.props.signupPostUri, {
+				email: email,
+				password: password
+			})
+			.done(function(data) {
+				this.setState({ signupError: null, signupSuccess: true });
+			}.bind(this))
+			.fail(function(res) {
+				var data = res.responseJSON;
+				if (data.error == "User already exists.") {
+					this.setState({ signupError: "Un utilisateur est déjà inscrit avec cette adresse e-mail." });
+				} else {
+					this.setState({ signupError: "Une erreur s'est produite." });
+				}
+			}.bind(this))
+			.always(function() {
+				this.setState({ signinUp: false });
+			}.bind(this));
+		}
 	},
 
 	render: function SignupForm_render() {
