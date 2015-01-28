@@ -18,6 +18,6 @@ var appComponent = React.render(
 	document.getElementById('app')
 );
 
-var router = new Router(appComponent);
+var router = new Router(appComponent, window.ga);
 router.startRouting();
 

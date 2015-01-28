@@ -1,7 +1,8 @@
 
-var Router = function(appComponent) {
+var Router = function(appComponent, ga) {
 
 	this.appComponent = appComponent;
+	this.ga = ga;
 
 }
 
@@ -58,6 +59,7 @@ Router.prototype._initAppComponentComponentWillUpdate = function() {
 				'',
 				path
 			);
+			ga && ga('send', 'pageview');
 		}
 		oldAppComponent_ComponentWillUpdate && oldAppComponent_ComponentWillUpdate(nextProps, nextState);
 	}.bind(this);
@@ -81,6 +83,7 @@ Router.prototype._initWindowOnPopState = function() {
 				'',
 				path
 			);
+			ga && ga('send', 'pageview');
 		}
 	}.bind(this);
 }
@@ -101,6 +104,7 @@ Router.prototype.startRouting = function() {
 		);
 	}
 	this.appComponent.setState(state);
+	ga && ga('send', 'pageview');
 }
 
 module.exports = Router;

@@ -13,9 +13,6 @@ var App = React.createClass({
 			auth: this.props.initialAuth
 		};
 	},
-	sendAnalyticsEvent: function() {
-		ga('send', 'pageview', document.location.pathname, { userId: this.state.auth ? this.state.auth.user.username : null });
-	},
 	componentWillMount: function() {
 		if (this.state.auth) {
 			var expireDate = new Date(this.state.auth.expires);
@@ -23,9 +20,6 @@ var App = React.createClass({
 			if (now >= expireDate)
 				this.setState({ auth: null });
 		}
-	},
-	componentDidMount: function() {
-		this.sendAnalyticsEvent();
 	},
 	track: function() {
 		if (this.refs.packageTracker)
