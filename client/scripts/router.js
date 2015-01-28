@@ -59,7 +59,7 @@ Router.prototype._initAppComponentComponentWillUpdate = function() {
 				'',
 				path
 			);
-			ga && ga('send', 'pageview');
+			ga && ga('send', 'pageview', path);
 		}
 		oldAppComponent_ComponentWillUpdate && oldAppComponent_ComponentWillUpdate(nextProps, nextState);
 	}.bind(this);
@@ -83,7 +83,7 @@ Router.prototype._initWindowOnPopState = function() {
 				'',
 				path
 			);
-			ga && ga('send', 'pageview');
+			ga && ga('send', 'pageview', path);
 		}
 	}.bind(this);
 }
@@ -104,7 +104,7 @@ Router.prototype.startRouting = function() {
 		);
 	}
 	this.appComponent.setState(state);
-	ga && ga('send', 'pageview');
+	ga && ga('send', 'pageview', path);
 }
 
 module.exports = Router;
