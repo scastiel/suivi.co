@@ -20,6 +20,7 @@ function extractLineDataFromTr (tr) {
 		
 		var locationImg = $(tr).find('td[headers="site"] img');
 		var locationImgUrl = locationImg ? baseUrl + '/portail_colissimo/' + $(locationImg).attr('src') : null;
+		locationImgUrl = locationImgUrl.replace(/width=\d+/, 'width=145');
 
 		imageTemp
 			.saveImagesToTempFiles([ dateImgUrl, labelImgUrl, locationImgUrl ], 'png')
