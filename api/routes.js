@@ -5,6 +5,8 @@ var fs = require('fs');
 var express = require('express');
 var api = express.Router();
 
+var TrackingRequest = require('../model/tracking-request');
+
 var CarrierFactory = require('./lib/carriers');
 var carrierFactory = new CarrierFactory();
 
@@ -19,7 +21,19 @@ api.get('/guess-carrier/:trackingNumber', function (req, res, next) {
 	res.send(carriers.map(function (carrier) { return carrier.code; }));
 });
 
-api.get('/track/:carrierCode/:trackingNumber', function (req, res, next) {
+function logRequestForUser(req, res, next) {
+	if (!req.user) return next();
+	var trackingRequest = new TrackingRequest({
+		user: req.user.id,
+		carrierCode: req.params.carrierCode,
+		trackingNumber: req.params.trackingNumber
+	});
+	trackingRequest.save(function(err) {
+		next();
+	});
+}
+
+api.get('/track/:carrierCode/:trackingNumber', [ logRequestForUser ], function (req, res, next) {
 	var carrier = carrierFactory.get(req.params.carrierCode);
 	if (!carrier) {
 		res.status(400).send({ error: { message: "Unknown carrier: " + req.params.carrierCode } });
