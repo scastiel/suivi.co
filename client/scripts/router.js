@@ -100,7 +100,7 @@ Router.prototype.startRouting = function() {
 		history.replaceState(
 			this.appComponent.state,
 			'',
-			path
+			path + document.location.search
 		);
 	}
 	this.appComponent.setState(state);
