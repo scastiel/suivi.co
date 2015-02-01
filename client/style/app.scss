@@ -22,7 +22,7 @@ body {
 .main {
 	max-width: 620px;
 	margin: 0 auto;
-	padding: 0 10px 10px;
+	padding: 30px 10px 10px;
 }
 .enterTrackingInfo {
 	text-align: center;
@@ -42,7 +42,7 @@ h1, h1 * {
 	font-size: 64px;
 	margin-bottom: 25px;
 }
-h1.small-title {
+h1.small-title, h1.small-title * {
 	font-size: 35px;
 }
 h1 small {
