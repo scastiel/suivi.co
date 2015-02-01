@@ -67,7 +67,8 @@ var TrackingNumberForm = React.createClass({
 					<label htmlFor="txtTrackingNumber">Votre numéro de colis&nbsp;:</label>
 					<input type="text" className="form-control input-lg" name="trackingNumber" id="txtTrackingNumber"
 						placeholder="12345-67890-A" onChange={this.handleTrackingNumberChange}
-						value={this.state.trackingNumber}/>
+						value={this.state.trackingNumber}
+						autoComplete="off" autoCorrect="off" autoCapitalize="off" spellCheck="false"/>
 				</div>
 				<button type="submit" className="btn btn-default btn-lg"
 					disabled={this.state.trackingNumber !== '' ? '' : 'disabled'}>
