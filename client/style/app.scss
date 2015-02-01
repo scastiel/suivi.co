@@ -22,7 +22,7 @@ body {
 .main {
 	max-width: 620px;
 	margin: 0 auto;
-	padding: 70px 10px 10px;
+	padding: 0 10px 10px;
 }
 .enterTrackingInfo {
 	text-align: center;
@@ -67,7 +67,7 @@ h1.small-title .logo {
 	width: auto;
 }
 #txtTrackingNumber {
-	text-align: center;
+	//text-align: center;
 }
 
 #trackingLinesSection {
@@ -84,4 +84,8 @@ img.line-data {
 	-moz-filter: contrast(112%);
 	-ms-filter: contrast(112%);
 	-o-filter: contrast(112%);
+}
+
+.input-group .input-group-btn .btn-lg {
+	padding-top: 11px;
 }

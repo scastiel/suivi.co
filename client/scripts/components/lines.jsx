@@ -32,7 +32,13 @@ var Lines = React.createClass({
 				</div>
 			);
 		} else {
-			return <div/>
+			return (
+				<div className="well well-lg">
+					<p>Vous achetez sur Internet et recevez régulièrement des colis ?</p>
+					<p>Mais savez-vous à chaque fois comment suivre ces colis ?</p>
+					<p>Et si un site vous permettait de suivre n'importe quel colis, <strong>quelque soit le transporteur</strong> ?</p>
+				</div>
+			);
 		}
 	}
 });
