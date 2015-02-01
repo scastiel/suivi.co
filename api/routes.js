@@ -46,31 +46,55 @@ api.get('/guess-carrier/:trackingNumber', function (req, res, next) {
 	res.send(carriers.map(function (carrier) { return carrier.code; }));
 });
 
-api.get('/track/:trackingNumber', [ logRequestForUser ], function (req, res, next) {
-	Promise.all(carrierFactory.all().map(function (carrier) {
-		return new Promise(function (resolve, reject) {
-			carrier.extractTrackingLines(req.params.trackingNumber)
-				.then(function(lines) {
-					remplaceImagePathsByDataUrlInLines(lines);
-					resolve({ carrier: carrier, lines: lines });
-				})
-				.catch(function(err) { resolve({ carrier: carrier, lines: false }); });
-		});
-	}))
+function extractTrackingLinesForCarrier(trackingNumber, carrier) {
+	return new Promise(function (resolve, reject) {
+		carrier.extractTrackingLines(trackingNumber)
+			.then(function(lines) {
+				remplaceImagePathsByDataUrlInLines(lines);
+				resolve({ carrier: carrier, lines: lines });
+			})
+			.catch(function(err) { resolve({ carrier: carrier, lines: false }); });
+	});
+}
+
+function filterResults(results) {
+	var filteredResults = [];
+	for (var i in results) {
+		if (!results.hasOwnProperty(i)) continue;
+		var result = results[i];
+		if (result.lines !== false)
+			filteredResults.push(result);
+	}
+	return filteredResults;
+}
+
+function getLinesFromRequest(req, res, next) {
+	Promise.all(carrierFactory.all().map(extractTrackingLinesForCarrier.bind(null, req.params.trackingNumber)))
+	.then(filterResults)
 	.then(function (results) {
-		var filteredResults = [];
-		for (var i in results) {
-			if (!results.hasOwnProperty(i)) continue;
-			var result = results[i];
-			if (result.lines !== false)
-				filteredResults.push(result);
-		}
-		res.send(filteredResults);
+		res.results = results;
+		next();
 	})
 	.catch(function (err) {
 		console.log("Error", err);
 		res.status(500).send(err);
 	});
+}
+
+function logRequest(req, res, next) {
+	var trackingRequest = new TrackingRequest({
+		user: req.user ? req.user.id : null,
+		carrierCode: req.params.carrierCode,
+		trackingNumber: req.params.trackingNumber,
+		ok: res.results.length > 0
+	});
+	trackingRequest.save(function(err) {
+		next();
+	});
+}
+
+api.get('/track/:trackingNumber', getLinesFromRequest, logRequest, function (req, res, next) {
+	res.send(res.results);
 });
 
 api.get('/track/:carrierCode/:trackingNumber', [ logRequestForUser ], function (req, res, next) {
