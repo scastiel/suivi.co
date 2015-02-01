@@ -42,7 +42,6 @@ var App = React.createClass({
 	render: function() {
 		return (
 			<div>
-				<NavBar appComponent={this}/>
 				<PackageTracker
 					ref="packageTracker"
 					appComponent={this}

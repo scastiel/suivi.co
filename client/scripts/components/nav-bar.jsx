@@ -23,9 +23,7 @@ var NavBar = React.createClass({
 				</ul>;
 		} else {
 			userUl =
-				<ul className="nav navbar-nav navbar-right">
-					<p className="navbar-text">Non connecté</p>
-				</ul>;
+				<ul className="nav navbar-nav navbar-right"/>;
 		}
 		return (
 			<nav className="navbar navbar-default navbar-fixed-top">
