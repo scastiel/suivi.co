@@ -12,18 +12,32 @@ var PackageTracker = React.createClass({
 			error: null
 		});
 
-		var uri = this.props.packageTrackingSource
-			.replace(':carrierCode', this.props.appComponent.state.carrierCode)
+		var uri = this.props.packageTrackingSourceWithoutCarrier
 			.replace(':trackingNumber', this.props.appComponent.state.trackingNumber);
 		$.getJSON(uri)
-			.done(function (lines) {
+			.done(function (results) {
+				var lines, carrier;
+				for (result of results) {
+					if (result.lines !== false) {
+						lines = result.lines;
+						carrier = result.carrier;
+						break;
+					}
+				}
 				this.refs.linesComponent.setState({
 					loading: false
 				});
-				this.props.appComponent.setState({
-					lines: lines,
-					error: null
-				});
+				if (lines) {
+					this.props.appComponent.setState({
+						lines: lines,
+						detectedCarrier: carrier,
+						error: null
+					});
+				} else {
+					this.props.appComponent.setState({
+						error: "Le numéro de colis n'a pas été reconnu."
+					});
+				}
 			}.bind(this))
 			.fail(function (xhr) {
 				if (xhr.responseJSON) {

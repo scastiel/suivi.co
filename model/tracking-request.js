@@ -4,7 +4,7 @@ var mongoose = require('mongoose');
 var trackingRequestSchema = mongoose.Schema({
 	date: { type: Date, default: Date.now },
 	user: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-	carrierCode: { type: String, required: true },
+	carrierCode: { type: String },
 	trackingNumber: { type: String, required: true }
 });
 
