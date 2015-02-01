@@ -53,7 +53,7 @@ var authRoutes = require('./auth/routes.js')(app);
 app.use('/auth', authRoutes);
 
 var apiRoutes = require('./api/routes.js');
-app.use('/api', [ jwtauth.needsToBeLoggedIn, jwtauth.needsToBeBetaUser ], apiRoutes);
+app.use('/api', apiRoutes);
 
 var indexRoute = function (req,res){
 	res.sendFile(__dirname + '/client/public/index.html');

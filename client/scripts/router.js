@@ -8,17 +8,10 @@ var Router = function(appComponent, ga) {
 
 Router.prototype.getPathFromAppState = function getPathFromAppState(state) {
 	var path;
-	if (!state.auth) {
-		path = '/login';
-		// if (document.location.pathname != path) {
-		// 	path += '?redirect=' + encodeURIComponent(document.location.pathname);
-		// }
+	if (state.trackingNumber && state.carrierCode) {
+		path = '/track/' + state.carrierCode + '/' + state.trackingNumber;
 	} else {
-		if (state.trackingNumber && state.carrierCode) {
-			path = '/track/' + state.carrierCode + '/' + state.trackingNumber;
-		} else {
-			path = '/';
-		}
+		path = '/';
 	}
 	return path;
 }
