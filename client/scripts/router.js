@@ -8,8 +8,8 @@ var Router = function(appComponent, ga) {
 
 Router.prototype.getPathFromAppState = function getPathFromAppState(state) {
 	var path;
-	if (state.trackingNumber && state.carrierCode) {
-		path = '/track/' + state.carrierCode + '/' + state.trackingNumber;
+	if (state.trackingNumber) {
+		path = '/track/' + state.trackingNumber;
 	} else {
 		path = '/';
 	}
@@ -29,13 +29,12 @@ Router.prototype.getAppStateFromContext = function getAppStateFromContext() {
 	var auth = localStorage.auth ? JSON.parse(localStorage.auth) : null;
 	if (auth) {
 		state.auth = auth;
+	}
 
-		var path = document.location.pathname;
-		var matches = path.match(/track\/([^\/]+)\/([^\/]+)/)
-		if (matches && matches.length > 0) {
-			state.trackingNumber = matches[2],
-			state.carrierCode = matches[1];
-		}
+	var path = document.location.pathname;
+	var matches = path.match(/^\/track\/([^\/]+)/)
+	if (matches && matches.length > 0) {
+		state.trackingNumber = matches[1]
 	}
 
 	return state;

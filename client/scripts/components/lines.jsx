@@ -14,9 +14,9 @@ var Lines = React.createClass({
 			);
 		} else if (this.props.appComponent.state.error !== null) {
 			return (
-				<p className="error">Une erreur s’est produite : {this.props.appComponent.state.error}</p>
+				<p className="error">{this.props.appComponent.state.error}</p>
 			);
-		} else {
+		} else if (this.props.appComponent.state.lines.length > 0) {
 			var lineComponents = [];
 			var lines = this.props.appComponent.state.lines;
 			for (var i in lines) {
@@ -24,10 +24,15 @@ var Lines = React.createClass({
 				lineComponents.push(<Line line={lines[i]} key={i}/>);
 			}
 			return (
-				<ul className="list-group">
-					{lineComponents}
-				</ul>
+				<div>
+					<p>Transporteur détecté : <strong>{this.props.appComponent.state.detectedCarrier.name}</strong></p>
+					<ul className="list-group">
+						{lineComponents}
+					</ul>
+				</div>
 			);
+		} else {
+			return <div/>
 		}
 	}
 });

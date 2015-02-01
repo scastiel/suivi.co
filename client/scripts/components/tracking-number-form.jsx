@@ -39,9 +39,14 @@ var TrackingNumberForm = React.createClass({
 	},
 	onOkButtonClick: function(event) {
 		event.preventDefault();
+		var trackingNumber = this.state.trackingNumber;
+		trackingNumber = trackingNumber
+			.replace(/n°/i, '')
+			.replace(/[^a-zA-Z0-9]/g, '')
+			.trim();
 		this.props.appComponent.setState({
 			carrierCode: this.state.carrierCode,
-			trackingNumber: this.state.trackingNumber
+			trackingNumber: trackingNumber
 		}, this.props.onOkButtonClick);
 	},
 	render: function() {
@@ -64,15 +69,8 @@ var TrackingNumberForm = React.createClass({
 						placeholder="12345-67890-A" onChange={this.handleTrackingNumberChange}
 						value={this.state.trackingNumber}/>
 				</div>
-				<div className="form-group">
-					<label htmlFor="selectCarrier">Transporteur&nbsp;:&nbsp;</label>
-					<select className="form-control inline-input" name="carrier" id="selectCarrier"
-						onChange={this.handleCarrierCodeChange} value={this.state.carrierCode}>
-						{carriersComponents}
-					</select>
-				</div>
 				<button type="submit" className="btn btn-default btn-lg"
-					disabled={this.state.trackingNumber !== '' && this.state.carrierCode !== null ? '' : 'disabled'}>
+					disabled={this.state.trackingNumber !== '' ? '' : 'disabled'}>
 					Valider
 				</button>
 			</form>

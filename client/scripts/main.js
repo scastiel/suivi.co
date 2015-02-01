@@ -11,6 +11,7 @@ var appComponent = React.render(
 	React.createElement(App, {
 		carriersSource: "/api/carriers",
 	    packageTrackingSource: "/api/track/:carrierCode/:trackingNumber",
+	    packageTrackingSourceWithoutCarrier: "/api/track/:trackingNumber",
 	    loginPostUri: "/auth/login",
 	    signupPostUri: "/auth/user",
 	    initialAuth: auth

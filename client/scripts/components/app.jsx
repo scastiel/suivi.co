@@ -47,7 +47,8 @@ var App = React.createClass({
 					ref="packageTracker"
 					appComponent={this}
 					carriersSource={this.props.carriersSource}
-					packageTrackingSource={this.props.packageTrackingSource} />
+					packageTrackingSource={this.props.packageTrackingSource}
+					packageTrackingSourceWithoutCarrier={this.props.packageTrackingSourceWithoutCarrier} />
 			</div>
 		);
 	}
