@@ -1,5 +1,6 @@
 
 var Line = require('./line.jsx');
+var SaveRequestPopup = require('./save-request-popup.jsx');
 
 var Lines = React.createClass({
 	getInitialState: function() {
@@ -26,6 +27,7 @@ var Lines = React.createClass({
 			return (
 				<div>
 					<p>Transporteur détecté : <strong>{this.props.appComponent.state.detectedCarrier.name}</strong></p>
+					<SaveRequestPopup appComponent={this.props.appComponent}/>
 					<ul className="list-group">
 						{lineComponents}
 					</ul>
