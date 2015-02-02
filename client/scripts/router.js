@@ -13,6 +13,11 @@ Router.prototype.getPathFromAppState = function getPathFromAppState(state) {
 	} else {
 		path = '/';
 	}
+
+	if (state.saveRequestPopup) {
+		path += '/save-request'
+	}
+
 	return path;
 }
 
