@@ -65,7 +65,7 @@ app.get('/login', indexRoute);
 app.get('/config.js', function(req, res) {
 	var config = {
 		analyticsId: process.env.ANALYTICS_ID || "UA-58859109-1",
-		abTestKey: process.env.ANALYTICS_AB_TEST_KEY | null
+		abTestKey: process.env.ANALYTICS_AB_TEST_KEY
 	};
 	res.set('Content-Type', 'application/javascript');
 	res.end('var Config = ' + JSON.stringify(config) + ';');
