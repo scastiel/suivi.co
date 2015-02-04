@@ -34,13 +34,28 @@ var Lines = React.createClass({
 				</div>
 			);
 		} else {
-			return (
-				<div className="well well-lg">
-					<p>Vous achetez sur Internet et recevez régulièrement des colis ?</p>
-					<p>Mais savez-vous à chaque fois comment suivre ces colis ?</p>
-					<p>Et si un site vous permettait de suivre n'importe quel colis, <strong>quelque soit le transporteur</strong> ?</p>
-				</div>
-			);
+			if (this.props.appComponent.state.v == '1') {
+				return (
+					<div className="well well-lg">
+						<p>
+							<strong>Suivi.co</strong> vous permet de suivre vos colis sur un site unique
+							et ce <strong>quelque soit le transporteur</strong>.
+						</p>
+						<p>
+							Pour cela, saisissez ci-dessus le numéro de colis fourni par le transporteur
+							ou le marchand, puis cliquez sur <em>Valider</em>.
+						</p>
+					</div>
+				);
+			} else {
+				return (
+					<div className="well well-lg">
+						<p>Vous achetez sur Internet et recevez régulièrement des colis ?</p>
+						<p>Mais savez-vous à chaque fois comment suivre ces colis ?</p>
+						<p>Et si un site vous permettait de suivre n'importe quel colis, <strong>quelque soit le transporteur</strong> ?</p>
+					</div>
+				);
+			}
 		}
 	}
 });

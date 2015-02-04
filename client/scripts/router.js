@@ -21,6 +21,18 @@ Router.prototype.getPathFromAppState = function getPathFromAppState(state) {
 	return path;
 }
 
+function getQueryVariable(variable) {
+	var query = document.location.search.substring(1);
+	var vars = query.split("&");
+	for (var i = 0; i < vars.length; i++) {
+		var pair = vars[i].split("=");
+		if(pair[0] == variable) {
+			return pair[1];
+		}
+	}
+	return(false);
+}
+
 Router.prototype.getAppStateFromContext = function getAppStateFromContext() {
 	
 	var state = {
@@ -41,6 +53,9 @@ Router.prototype.getAppStateFromContext = function getAppStateFromContext() {
 	if (matches && matches.length > 0) {
 		state.trackingNumber = matches[1]
 	}
+
+	// Analytics A/B testing
+	state.v = window.localStorage.getItem('v') || '0';
 
 	return state;
 
@@ -85,11 +100,19 @@ Router.prototype._initWindowOnPopState = function() {
 	}.bind(this);
 }
 
+Router.prototype._initABTesting = function() {
+	var v = getQueryVariable('v');
+	if (v !== false && window.localStorage.getItem('v') === null)
+		window.localStorage.setItem('v', v);
+}
+
 Router.prototype.startRouting = function() {
 
 	this._initAppComponentComponentWillUpdate(this.appComponent);
 
 	this._initWindowOnPopState(this.appComponent);
+
+	this._initABTesting();
 
 	var state = this.getAppStateFromContext();
 	var path = this.getPathFromAppState(state);
