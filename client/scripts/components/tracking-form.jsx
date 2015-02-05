@@ -1,5 +1,8 @@
 
-var TrackingNumberForm = React.createClass({
+var Router = ReactRouter;
+var Link = Router.Link;
+
+var TrackingForm = React.createClass({
 	mixins: [ React.addons.LinkedStateMixin ],
 	getInitialState: function() {
 		return {
@@ -16,26 +19,31 @@ var TrackingNumberForm = React.createClass({
 			this.state.carrierCode = carriers[0].code;
 	},
 	componentWillMount: function() {
-		$.getJSON(this.props.carriersSource).done(this.carriersLoaded).fail(function () {
-			console.log("Error loading carriers.");
-		});
+		// $.getJSON(this.props.carriersSource).done(this.carriersLoaded).fail(function () {
+		// 	console.log("Error loading carriers.");
+		// });
 
-		var currentAppComponentWillUpdate = this.props.appComponent.componentWillUpdate;
-		this.props.appComponent.componentWillUpdate = function(nextProps, nextState) {
-			if (this.isMounted()) {
-				this.setState({
-					carrierCode: nextState.carrierCode,
-					trackingNumber: nextState.trackingNumber
-				});
-			}
-			currentAppComponentWillUpdate && currentAppComponentWillUpdate(nextProps, nextState);
-		}.bind(this);
+		// var currentAppComponentWillUpdate = this.props.appComponent.componentWillUpdate;
+		// this.props.appComponent.componentWillUpdate = function(nextProps, nextState) {
+		// 	if (this.isMounted()) {
+		// 		this.setState({
+		// 			carrierCode: nextState.carrierCode,
+		// 			trackingNumber: nextState.trackingNumber
+		// 		});
+		// 	}
+		// 	currentAppComponentWillUpdate && currentAppComponentWillUpdate(nextProps, nextState);
+		// }.bind(this);
 	},
 	handleTrackingNumberChange: function(event) {
 		this.setState({ trackingNumber: event.target.value });
 	},
 	handleCarrierCodeChange: function(event) {
 		this.setState({ carrierCode: event.target.value });
+	},
+	beautifyTrackingNumber: function(trackingNumber) {
+		return trackingNumber
+			.replace(/n°/i, '')
+			.replace(/[^a-zA-Z0-9]/g, '');
 	},
 	onOkButtonClick: function(event) {
 		event.preventDefault();
@@ -62,7 +70,7 @@ var TrackingNumberForm = React.createClass({
 			carriersComponents.push(<option value="" key="null">Chargement...</option>)
 		}
 		return (
-			<form role="form" onSubmit={this.onOkButtonClick}>
+			<form role="form" onSubmit={this.onOkButtonClick} className="enterTrackingInfo">
 				<div className="form-group">
 					<label htmlFor="txtTrackingNumber">Votre numéro de colis&nbsp;:</label>
 					
@@ -72,8 +80,10 @@ var TrackingNumberForm = React.createClass({
 							value={this.state.trackingNumber}
 							autoComplete="off" autoCorrect="off" autoCapitalize="off" spellCheck="false"/>
 						<span className="input-group-btn">
-					    	<button className="btn btn-default btn-lg" type="submit"
-					    		disabled={this.state.trackingNumber !== '' ? '' : 'disabled'}>Valider</button>
+					    	<Link activeClassName="" className={"btn btn-default btn-lg" + (this.state.trackingNumber ? '' : ' disabled')}
+					    	      to="track" params={{trackingNumber: this.beautifyTrackingNumber(this.state.trackingNumber || '')}}>
+					    		Valider
+					    	</Link>
 					    </span>
 					</div>
 				</div>
@@ -82,4 +92,4 @@ var TrackingNumberForm = React.createClass({
 	}
 });
 
-module.exports = TrackingNumberForm;
+module.exports = TrackingForm;
