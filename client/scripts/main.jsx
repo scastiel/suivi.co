@@ -18,5 +18,7 @@ var routes = (
 );
 
 Router.run(routes, Router.HistoryLocation, function (Handler) {
-	React.render(<Handler/>, document.getElementsByClassName('app')[0]);
+	React.render(<Handler/>, document.getElementById('app'), function() {
+		ga && ga('send', 'pageview', document.location.pathname)
+	});
 });
