@@ -48,6 +48,7 @@ var TrackingResult = React.createClass({
 						}
 					}
 					if (lines) {
+						ga && ga('send', 'event', 'tracker', 'track', 'successful');
 						this.setState({
 							loading: false,
 							lines: lines,
@@ -55,6 +56,7 @@ var TrackingResult = React.createClass({
 							error: null
 						});
 					} else {
+						ga && ga('send', 'event', 'tracker', 'track', 'unsuccessful');
 						this.setState({
 							loading: false,
 							lines: [],
@@ -98,7 +100,7 @@ var TrackingResult = React.createClass({
 						</p>
 						<p>
 							Pour être informé des évolutions de Suivi.co et notamment des nouveaux
-							transporteurs que nous gérons, inscrivez-vous à notre newsletter&nbsp;:
+							transporteurs que nous prenons en charge, inscrivez-vous à notre newsletter&nbsp;:
 						</p>
 						<NewsletterSignupForm/>
 					</div>
@@ -106,13 +108,30 @@ var TrackingResult = React.createClass({
 				</div>
 			);
 		} else {
+
+			var lineComponents = this.state.lines.map(function(line, i) { return (
+				<Line line={line} key={i}/>
+			); });
+			lineComponents.splice(2, 0,
+				<li className="list-group-item newsletter">
+					<div className="row">
+						<div className="col-xs-12 col-sm-6">
+							Vous aimez <strong>Suivi.co</strong> ?<br/>
+							Abonnez-vous à notre newsletter
+							pour ne rien manquer des évolutions de notre service !
+						</div>
+						<div className="col-xs-12 col-sm-6">
+							<NewsletterSignupForm/>
+						</div>
+					</div>
+				</li>
+			);
+
 			return (
 				<div>
 					<p>Transporteur détecté : <strong>{this.state.detectedCarrier.name}</strong></p>
 					<ul className="list-group">
-						{this.state.lines.map(function(line, i) { return (
-							<Line line={line} key={i}/>
-						); })}
+						{lineComponents}
 					</ul>
 				</div>
 			);
