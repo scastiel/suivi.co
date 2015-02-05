@@ -10,11 +10,11 @@
 * {
 	font-family: 'Source Sans Pro', sans-serif;
 }
-h1, h1 a, h1 a:hover, h1 a:active, .form-signin, .form-signup, .package-tracker, .btn, .btn:active, .well {
+h1, h1 a, h1 a *, h1 a:hover, h1 a:active, h1 a:focus, .form-signin, .form-signup, .package-tracker, .btn, .btn:active, .well {
 	color: #666666;
 }
-h1 a:hover, h1 a:active {
-	text-decoration: none;
+h1 a:hover, h1 a:hover *, h1 a:active, h1 a:active *, h1 a:focus, h1 a:focus * {
+	text-decoration: none !important;
 }
 body {
 	background-color: #eff2f3;
@@ -41,14 +41,16 @@ h1, h1 * {
 	text-align: center;
 	font-size: 64px;
 	margin-bottom: 25px;
+	line-height: 0.5;
 }
 h1.small-title, h1.small-title * {
 	font-size: 35px;
 }
 h1 small {
-	font-size: 20px;
+	font-size: 19px;
 	color: #999;
 	display: inline-block;
+	margin-left: 10px;
 }
 h1.small-title small {
 	font-size: 16px;
@@ -57,7 +59,7 @@ h1.small-title small {
 	height: 50px;
 	vertical-align: baseline;
 	margin-bottom: -2px;
-	margin-right: 5px;
+	margin-right: 15px;
 }
 h1.small-title .logo {
 	height: 30px;

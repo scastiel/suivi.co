@@ -5,11 +5,11 @@ module.exports = function(grunt) {
     watch: {
       scripts: {
         files: 'client/scripts/**/*',
-        tasks: ['browserify']
+        tasks: ['concat', 'browserify']
       },
       style: {
         files: 'client/style/**/*',
-        tasks: ['sass']
+        tasks: ['concat', 'sass']
       },
       assets: {
         files: ['client/assets/**/*', 'client/html/**/*'],
@@ -22,7 +22,8 @@ module.exports = function(grunt) {
         src: [
           'client/bower_components/jquery/dist/jquery.js',
           'client/bower_components/bootstrap/dist/js/bootstrap.js',
-          'client/bower_components/react/react-with-addons.js'
+          'client/bower_components/react/react-with-addons.js',
+          'client/bower_components/react-router/dist/react-router.js'
         ],
         dest: 'client/public/scripts/vendor.js'
       },
@@ -40,7 +41,7 @@ module.exports = function(grunt) {
         transform: [ require('grunt-react').browserify ]
       },
       app: {
-        src: ['client/scripts/main.js'],
+        src: ['client/scripts/main.jsx'],
         dest: 'client/public/scripts/app.js'
       }
     },
