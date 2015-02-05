@@ -1,5 +1,7 @@
 
-var Router = ReactRouter;
+var React = require('react');
+var Router = require('react-router');
+
 var Route = Router.Route;
 var DefaultRoute = Router.DefaultRoute;
 var Link = Router.Link;
@@ -7,14 +9,6 @@ var Link = Router.Link;
 var App = require('./components/app.jsx');
 var Home = require('./components/home.jsx');
 var TrackingResult = require('./components/tracking-result.jsx');
-
-// var appComponent = React.render(
-// 	React.createElement(App, {
-// 		carriersSource: "/api/carriers",
-// 	    packageTrackingSourceWithoutCarrier: "/api/track/:trackingNumber"
-// 	}),
-// 	document.getElementById('app')
-// );
 
 var routes = (
 	<Route name="app" path="/" handler={App}>

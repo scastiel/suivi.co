@@ -21,9 +21,7 @@ module.exports = function(grunt) {
       vendor_scripts: {
         src: [
           'client/bower_components/jquery/dist/jquery.js',
-          'client/bower_components/bootstrap/dist/js/bootstrap.js',
-          'client/bower_components/react/react-with-addons.js',
-          'client/bower_components/react-router/dist/react-router.js'
+          'client/bower_components/bootstrap/dist/js/bootstrap.js'
         ],
         dest: 'client/public/scripts/vendor.js'
       },

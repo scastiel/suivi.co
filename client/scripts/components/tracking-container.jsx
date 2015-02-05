@@ -1,5 +1,6 @@
 
-var Router = ReactRouter;
+var React = require('react');
+var Router = require('react-router');
 var RouteHandler = Router.RouteHandler;
 
 var TrackingForm = require('./tracking-form.jsx');
