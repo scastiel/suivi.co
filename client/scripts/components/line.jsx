@@ -1,4 +1,6 @@
 
+var React = require('react');
+
 var Line = React.createClass({
 	
 	render: function() {
@@ -35,7 +37,7 @@ var Line = React.createClass({
 		);
 
 	}
-	
+
 });
 
 module.exports = Line;

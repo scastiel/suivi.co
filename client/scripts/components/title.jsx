@@ -1,5 +1,6 @@
 
-var Router = ReactRouter;
+var React = require('react');
+var Router = require('react-router');
 var Link = Router.Link;
 
 var Title = React.createClass({

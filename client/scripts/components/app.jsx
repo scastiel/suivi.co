@@ -3,7 +3,8 @@ var Title = require('./title.jsx');
 var TrackingContainer = require('./tracking-container.jsx');
 var Footer = require('./footer.jsx');
 
-var Router = ReactRouter;
+var React = require('react');
+var Router = require('react-router');
 var RouteHandler = Router.RouteHandler;
 
 var App = React.createClass({

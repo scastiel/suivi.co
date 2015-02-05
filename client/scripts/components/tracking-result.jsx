@@ -1,5 +1,6 @@
 
-var Router = ReactRouter;
+var React = require('react');
+var Router = require('react-router');
 
 var Line = require('./line.jsx');
 
@@ -83,17 +84,13 @@ var TrackingResult = React.createClass({
 				<p className="error">{this.state.error}</p>
 			);
 		} else {
-			var lineComponents = [];
-			var lines = this.state.lines;
-			for (var i in lines) {
-				if (!lines.hasOwnProperty(i)) continue;
-				lineComponents.push(<Line line={lines[i]} key={i}/>);
-			}
 			return (
 				<div>
 					<p>Transporteur détecté : <strong>{this.state.detectedCarrier.name}</strong></p>
 					<ul className="list-group">
-						{lineComponents}
+						{this.state.lines.map(function(line, i) { return (
+							<Line line={line} key={i}/>
+						); })}
 					</ul>
 				</div>
 			);
