@@ -1,5 +1,6 @@
 
 var React = require('react');
+var config = require('../config');
 
 var NewsletterSignupForm = React.createClass({
 
@@ -10,7 +11,7 @@ var NewsletterSignupForm = React.createClass({
 	render: function() {
 
 		return (
-			<form onSubmit={this.handleSubmit} className="newsletter-signup-form form-inline" action={Config.newsletterSignupFormAction} method="post" target="_blank">
+			<form onSubmit={this.handleSubmit} className="newsletter-signup-form form-inline" action={config.newsletterSignupFormAction} method="post" target="_blank">
 				<div>
 					<label htmlFor="mce-EMAIL" className="sr-only">Adresse e-mail :</label>
 					<div className="input-group">

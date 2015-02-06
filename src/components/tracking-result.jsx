@@ -4,6 +4,7 @@ var Router = require('react-router');
 
 var Line = require('./line.jsx');
 var NewsletterSignupForm = require('./newsletter-signup-form.jsx');
+var NewsletterLine = require('./newsletter-line.jsx');
 
 var TrackingResult = React.createClass({
 
@@ -113,18 +114,7 @@ var TrackingResult = React.createClass({
 				<Line line={line} key={i}/>
 			); });
 			lineComponents.splice(2, 0,
-				<li className="list-group-item newsletter">
-					<div className="row">
-						<div className="col-xs-12 col-sm-6">
-							Vous aimez <strong>Suivi.co</strong> ?<br/>
-							Abonnez-vous à notre newsletter
-							pour ne rien manquer des évolutions de notre service !
-						</div>
-						<div className="col-xs-12 col-sm-6">
-							<NewsletterSignupForm/>
-						</div>
-					</div>
-				</li>
+				<NewsletterLine key="newsletter"/>
 			);
 
 			return (

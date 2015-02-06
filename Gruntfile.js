@@ -4,15 +4,23 @@ module.exports = function(grunt) {
 
     watch: {
       scripts: {
-        files: 'client/scripts/**/*',
-        tasks: ['concat', 'browserify']
+        files: 'src/**/*',
+        tasks: ['browserify']
+      },
+      node_modules: {
+        files: 'package.json',
+        tasks: ['browserify']
+      },
+      bower_components: {
+        files: 'bower.json',
+        tasks: ['concat']
       },
       style: {
-        files: 'client/style/**/*',
+        files: 'style/**/*',
         tasks: ['concat', 'sass']
       },
       assets: {
-        files: ['client/assets/**/*', 'client/html/**/*'],
+        files: 'client/assets/**/*',
         tasks: ['copy']
       }
     },
@@ -20,17 +28,17 @@ module.exports = function(grunt) {
     concat: {
       vendor_scripts: {
         src: [
-          'client/bower_components/jquery/dist/jquery.js',
-          'client/bower_components/bootstrap/dist/js/bootstrap.js'
+          'bower_components/jquery/dist/jquery.js',
+          'bower_components/bootstrap/dist/js/bootstrap.js'
         ],
-        dest: 'client/public/scripts/vendor.js'
+        dest: 'public/scripts/vendor.js'
       },
       vendor_style: {
         src: [
-          'client/bower_components/bootstrap/dist/css/bootstrap.min.css',
-          'client/bower_components/bootstrap/dist/css/bootstrap-theme.min.css'
+          'bower_components/bootstrap/dist/css/bootstrap.min.css',
+          'bower_components/bootstrap/dist/css/bootstrap-theme.min.css'
         ],
-        dest: 'client/public/style/vendor.css'
+        dest: 'public/style/vendor.css'
       }
     },
 
@@ -39,29 +47,25 @@ module.exports = function(grunt) {
         transform: [ require('grunt-react').browserify ]
       },
       app: {
-        src: ['client/scripts/main.jsx'],
-        dest: 'client/public/scripts/app.js'
+        src: ['src/client/main.jsx'],
+        dest: 'public/scripts/app.js'
       }
     },
 
     sass: {
       dist: {
         files: {
-          'client/public/style/app.css': 'client/style/app.scss',
+          'public/style/app.css': 'style/app.scss',
         }
       }
     },
 
     copy: {
-      index: {
-        src: 'client/html/index.html',
-        dest: 'client/public/index.html',
-      },
       assets: {
         expand: true,
-        cwd: 'client/assets/',
+        cwd: 'assets/',
         src: '**',
-        dest: 'client/public/assets/'
+        dest: 'public/assets/'
       }
     }
 

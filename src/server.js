@@ -4,6 +4,11 @@ var app = express();
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var basicAuth = require('basic-auth');
+var mustacheExpress = require('mustache-express');
+
+var React = require('react');
+var Router = require('react-router');
+require("node-jsx").install({ extension: ".jsx" });
 
 if (process.env.CANONICAL_HOST) {
 	app.use(function(req, res, next) {
@@ -40,42 +45,24 @@ process.on('SIGINT', function() {
 	});
 });
 
-app.use(bodyParser.urlencoded({
-  extended: true
-}));
+app.use(bodyParser.urlencoded({ extended: true }));
 
 app.set('port', (process.env.PORT || 3000));
 app.set('jwtTokenSecret', process.env.JWT_TOKEN_SECRET || '+!5G:RY9*Y6RgQd%LDg(d244;|AqzM_lB/;KKS?}iMt?EZ=C1e1N|x-@i^k;;cv!');
 
-var jwtauth = require('./auth/jwtauth.js')(app);
+app.engine('html', mustacheExpress());
+app.set('view engine', 'html');
+app.set('views', __dirname + '/../views/');
 
-var authRoutes = require('./auth/routes.js')(app);
-app.use('/auth', authRoutes);
-
-var apiRoutes = require('./api/routes.js');
+var apiRoutes = require('./routes/api.js');
 app.use('/api', apiRoutes);
 
-var indexRoute = function (req,res){
-	res.sendFile(__dirname + '/client/public/index.html');
-};
-app.get('/', indexRoute);
-app.get('/track/*', indexRoute);
-app.get('/login', indexRoute);
+var reactRoute = require('./routes/site.jsx')(app);
+app.get('/', reactRoute);
+app.get('/track/*', reactRoute);
 
-app.get('/config.js', function(req, res) {
-	var config = {
-		analyticsId: process.env.ANALYTICS_ID || "UA-58859109-1",
-		abTestKey: process.env.ANALYTICS_AB_TEST_KEY,
-		newsletterSignupFormAction: process.env.NEWSLETTER_SIGNUP_FORM_ACTION || "//suivi.us10.list-manage.com/subscribe/post?u=be297462ad9889b6352e4a0e1&amp;id=a912ab7511"
-	};
-	res.set('Content-Type', 'application/javascript');
-	res.end('var Config = ' + JSON.stringify(config) + ';');
-});
-
-app.use(express.static('client/public'));
+app.use(express.static(__dirname + '/../public'));
 
 var server = app.listen(app.get('port'), function () {
-  var host = server.address().address;
-  var port = server.address().port;
-  console.log('Listening at http://%s:%s', host, port)
+	console.log('Listening on port %s', server.address().port)
 });
