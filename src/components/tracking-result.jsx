@@ -1,6 +1,7 @@
 
 var React = require('react');
 var Router = require('react-router');
+var $ = require('jquery');
 
 var Line = require('./line.jsx');
 var NewsletterSignupForm = require('./newsletter-signup-form/newsletter-signup-form.jsx');
