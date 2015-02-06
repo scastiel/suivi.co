@@ -1,6 +1,6 @@
 
-var $ = require('jquery');
-//require('bootstrap');
+window.jQuery = require('jquery');
+require('bootstrap');
 
 var React = require('react');
 var Router = require('react-router');
