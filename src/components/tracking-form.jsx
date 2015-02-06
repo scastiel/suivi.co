@@ -13,6 +13,10 @@ var TrackingForm = React.createClass({
 	handleTrackingNumberChange: function(event) {
 		this.setState({ trackingNumber: event.target.value });
 	},
+	handleFormSubmit: function(event) {
+		event.preventDefault();
+		this.refs.okButton.getDOMNode().click();
+	},
 	beautifyTrackingNumber: function(trackingNumber) {
 		return trackingNumber
 			.replace(/n°/i, '')
@@ -20,7 +24,7 @@ var TrackingForm = React.createClass({
 	},
 	render: function() {
 		return (
-			<form role="form" className="enterTrackingInfo">
+			<form role="form" className="enterTrackingInfo" onSubmit={this.handleFormSubmit}>
 				<div className="form-group">
 					<label htmlFor="txtTrackingNumber">Votre numéro de colis&nbsp;:</label>
 					
@@ -30,7 +34,7 @@ var TrackingForm = React.createClass({
 							value={this.state.trackingNumber}
 							autoComplete="off" autoCorrect="off" autoCapitalize="off" spellCheck="false"/>
 						<span className="input-group-btn">
-					    	<Link activeClassName="" className={"btn btn-default btn-lg" + (this.state.trackingNumber ? '' : ' disabled')}
+					    	<Link ref="okButton" activeClassName="" className={"btn btn-default btn-lg" + (this.state.trackingNumber ? '' : ' disabled')}
 					    	      to="track" params={{trackingNumber: this.beautifyTrackingNumber(this.state.trackingNumber || '')}}>
 					    		Valider
 					    	</Link>

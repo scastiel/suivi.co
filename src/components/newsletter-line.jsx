@@ -1,7 +1,7 @@
 
 var React = require('react');
 
-var NewsletterSignupForm = require('./newsletter-signup-form.jsx');
+var NewsletterSignupForm = require('./newsletter-signup-form/newsletter-signup-form.jsx');
 
 var NewsletterLine = React.createClass({
 
