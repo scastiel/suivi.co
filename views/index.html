@@ -2,30 +2,6 @@
 <html>
 <head>
 
-	<script>var Config = {{{config}}};</script>
-
-	<!-- Google Analytics Content Experiment code -->
-	<script>
-		function utmx_section(){}function utmx(){}(function(){var
-		k=Config.abTestKey,d=document,l=d.location,c=d.cookie;
-		if(l.search.indexOf('utm_expid='+k)>0)return;
-		function f(n){if(c){var i=c.indexOf(n+'=');if(i>-1){var j=c.
-		indexOf(';',i);return escape(c.substring(i+n.length+1,j<0?c.
-		length:j))}}}var x=f('__utmx'),xx=f('__utmxx'),h=l.hash;d.write(
-		'<sc'+'ript src="'+'http'+(l.protocol=='https:'?'s://ssl':
-		'://www')+'.google-analytics.com/ga_exp.js?'+'utmxkey='+k+
-		'&utmx='+(x?x:'')+'&utmxx='+(xx?xx:'')+'&utmxtime='+new Date().
-		valueOf()+(h?'&utmxhash='+escape(h.substr(1)):'')+
-		'" type="text/javascript" charset="utf-8"><\/sc'+'ript>')})();
-	</script>
-	<script>
-		if (Config.abTestKey) {
-			utmx('url','A/B');
-		}
-	</script>
-	<!-- End of Google Analytics Content Experiment code -->
-
-
 	<title>Suivez vos colis sur un site unique – Suivi.co</title>
 	<meta charset="utf-8">
 	<meta name="description" value="Suivi.co vous permet de suivre vos colis depuis un site unique, quelque soit le transporteur : Colissimo, UPS, Chronopost, Mondial Relay, Kiala, GLS, etc.">
@@ -65,8 +41,7 @@
 			m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 		})(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-		ga('create', Config.analyticsId, 'auto');
-		//ga('send', 'pageview');
+		ga('create', '{{config.analyticsId}}', 'auto');
     </script>
 
 	<script src="/scripts/vendor.js"></script>

@@ -3,7 +3,7 @@ var React = require('react');
 var Router = require('react-router');
 
 var Line = require('./line.jsx');
-var NewsletterSignupForm = require('./newsletter-signup-form.jsx');
+var NewsletterSignupForm = require('./newsletter-signup-form/newsletter-signup-form.jsx');
 var NewsletterLine = require('./newsletter-line.jsx');
 
 var TrackingResult = React.createClass({

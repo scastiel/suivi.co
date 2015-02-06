@@ -57,11 +57,13 @@ app.set('views', __dirname + '/../views/');
 var apiRoutes = require('./routes/api.js');
 app.use('/api', apiRoutes);
 
-var reactRoute = require('./routes/site.jsx')(app);
-app.get('/', reactRoute);
-app.get('/track/*', reactRoute);
+var newsletterRouter = require('./routes/newsletter');
+app.use('/newsletter', newsletterRouter);
 
 app.use(express.static(__dirname + '/../public'));
+
+var reactRoute = require('./routes/site.jsx')(app);
+app.use(reactRoute);
 
 var server = app.listen(app.get('port'), function () {
 	console.log('Listening on port %s', server.address().port)
