@@ -7,7 +7,7 @@ var api = express.Router();
 
 var TrackingRequest = require('../model/tracking-request');
 
-var CarrierFactory = require('./lib/carriers');
+var CarrierFactory = require('../api/carriers');
 var carrierFactory = new CarrierFactory();
 
 function remplaceImagePathsByDataUrlInLines(lines) {

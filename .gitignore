@@ -1,9 +1,8 @@
 .DS_store
 node_modules
 npm-debug.log
-client/bower_components
+bower_components
 .sass-cache
-client/public
+public
 .idea
-
 mongo_data
