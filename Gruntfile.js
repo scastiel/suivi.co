@@ -26,17 +26,10 @@ module.exports = function(grunt) {
     },
 
     concat: {
-      vendor_scripts: {
-        src: [
-          'bower_components/jquery/dist/jquery.js',
-          'bower_components/bootstrap/dist/js/bootstrap.js'
-        ],
-        dest: 'public/scripts/vendor.js'
-      },
       vendor_style: {
         src: [
-          'bower_components/bootstrap/dist/css/bootstrap.min.css',
-          'bower_components/bootstrap/dist/css/bootstrap-theme.min.css'
+          'node_modules/bootstrap/dist/css/bootstrap.min.css',
+          'node_modules/bootstrap/dist/css/bootstrap-theme.min.css'
         ],
         dest: 'public/style/vendor.css'
       }

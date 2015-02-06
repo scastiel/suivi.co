@@ -1,6 +1,7 @@
 
 var Reflux = require('reflux');
 var NewsletterActions = require('./newsletter-actions');
+var $ = require('jquery');
 
 var NewsletterStore = Reflux.createStore({
 
