@@ -1,5 +1,5 @@
 
-var Title = require('./title.jsx');
+var Navbar = require('./navbar.jsx');
 var TrackingContainer = require('./tracking-container.jsx');
 var Footer = require('./footer.jsx');
 
@@ -11,9 +11,9 @@ var App = React.createClass({
 	render: function() {
 		return (
 			<div>
+				<Navbar/>
 				<div className="main">
-					<Title/>
-					<TrackingContainer/>
+					<RouteHandler/>
 				</div>
 				<Footer/>
 			</div>
