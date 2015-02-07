@@ -1,14 +1,17 @@
 
-.well {
+.well, .panel {
 	background: rgba(255, 255, 255, 0.59);
 	border: none;
 	box-shadow: none;
 	max-width: 520px;
-	text-align: center;
-	margin-left: auto;
-	margin-right: auto;
 	font-family: 'Source Sans Pro', sans-serif;
 	font-weight: 100;
+}
+
+.well {
+	margin-left: auto;
+	margin-right: auto;
+	text-align: center;
 }
 
 .well-lg {
@@ -17,4 +20,27 @@
 
 .well-left {
 	text-align: justify;
+}
+
+.panel {
+	text-align: justify;
+	font-size: large;
+
+	.page-header {
+		margin-top: 0;
+		text-align: left;
+
+		h2 {
+			color: #666;
+		}
+	}
+
+	.carriers-logo-list {
+		text-align: center; 
+
+		img {
+			-webkit-filter: grayscale(100%) contrast(39%) brightness(142%);
+			filter: grayscale(100%) contrast(39%) brightness(142%);
+		}
+	}
 }

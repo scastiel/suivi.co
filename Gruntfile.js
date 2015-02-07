@@ -20,7 +20,7 @@ module.exports = function(grunt) {
         tasks: ['concat', 'sass']
       },
       assets: {
-        files: 'client/assets/**/*',
+        files: 'assets/**/*',
         tasks: ['copy']
       }
     },
@@ -37,7 +37,7 @@ module.exports = function(grunt) {
 
     browserify: {
       options: {
-        transform: [ require('grunt-react').browserify ]
+        transform: [ require('grunt-react').browserify ],
       },
       app: {
         src: ['src/client/main.jsx'],
