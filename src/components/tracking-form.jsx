@@ -15,7 +15,8 @@ var TrackingForm = React.createClass({
 	},
 	handleFormSubmit: function(event) {
 		event.preventDefault();
-		this.refs.okButton.getDOMNode().click();
+		if (this.state.trackingNumber)
+			this.refs.okButton.getDOMNode().click();
 	},
 	beautifyTrackingNumber: function(trackingNumber) {
 		return trackingNumber
