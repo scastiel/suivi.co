@@ -60,6 +60,23 @@ app.use('/api', apiRoutes);
 var newsletterRouter = require('./routes/newsletter');
 app.use('/newsletter', newsletterRouter);
 
+
+var Sitemap = require('express-sitemap');
+var sitemap = new Sitemap({
+    map: {
+        '/': ['get'],
+        '/comment-ca-marche': ['get'],
+        '/les-transporteurs': ['get']
+    },
+    url: process.env.CANONICAL_HOST
+});
+app.get('/sitemap.xml', function(req, res) {
+	sitemap.XMLtoWeb(res);
+});
+app.get('/robots.txt', function(req, res) {
+    sitemap.TXTtoWeb(res);
+});
+
 app.use(express.static(__dirname + '/../public'));
 
 var reactRoute = require('./routes/site.jsx')(app);
