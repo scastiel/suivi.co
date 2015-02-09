@@ -30,12 +30,12 @@ var TrackingResult = React.createClass({
 	},
 
 	track: function () {
-		if (this.state.currentTrackingNumber === this.getParams().trackingNumber)
+		if (this.state.currentTrackingNumber === this.getQuery().tn)
 			return;
 
 		this.setState({
 			loading: true,
-			currentTrackingNumber: this.getParams().trackingNumber,
+			currentTrackingNumber: this.getQuery().tn,
 			lines: []
 		}, function() {
 			var uri = "/api/track/:trackingNumber".replace(':trackingNumber', this.state.currentTrackingNumber);
