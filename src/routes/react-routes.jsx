@@ -4,6 +4,7 @@ var Router = require('react-router');
 var Route = Router.Route;
 var DefaultRoute = Router.DefaultRoute;
 var NotFoundRoute = Router.NotFoundRoute;
+var Redirect = Router.Redirect;
 
 var App = require('../components/app.jsx');
 var Home = require('../components/home.jsx');
@@ -21,12 +22,13 @@ module.exports = (
 		{/* Tracking */}
 		<Route handler={TrackingContainer}>
 			<DefaultRoute handler={Home}/>
-			<Route name="track" path="track/:trackingNumber" handler={TrackingResult} />
+			<Route name="track" path="suivre/:trackingNumber" handler={TrackingResult} />
 		</Route>
 
 		{/* Pages */}
-		<Route name="concept" path="concept" handler={ConceptPage}/>
-		<Route name="carriers" path="carriers" handler={CarriersPage}/>
+		<Route name="concept" path="comment-ca-marche" handler={ConceptPage}/>
+		
+		<Route name="carriers" path="les-transporteurs" handler={CarriersPage}/>
 		
 		<NotFoundRoute name="not-found" handler={NotFound} />
 	</Route>
