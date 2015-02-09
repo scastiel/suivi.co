@@ -34,6 +34,18 @@ var Navbar = React.createClass({
 								<Link to="carriers">Les transporteurs</Link>
 							</li>
 						</ul>
+						<ul className="nav navbar-nav navbar-right">
+							<li>
+								<p className="navbar-text social-icons">
+									<a href="http://www.facebook.com/suivi.co" target="_blank" title="Suivi.co sur Facebook">
+										<i className="fa fa-facebook-square"></i>
+									</a>
+									<a href="http://twitter.com/suivi_co" target="_blank" title="Suivi.co sur Twitter">
+										<i className="social-icon fa fa-twitter-square"></i>
+									</a>
+								</p>
+							</li>
+						</ul>
 					</div>
 				</div>
 			</nav>
