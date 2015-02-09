@@ -22,7 +22,7 @@ module.exports = (
 		{/* Tracking */}
 		<Route handler={TrackingContainer}>
 			<DefaultRoute handler={Home}/>
-			<Route name="track" path="suivre/:trackingNumber" handler={TrackingResult} />
+			<Route name="track" path="suivre" handler={TrackingResult} />
 		</Route>
 
 		{/* Pages */}

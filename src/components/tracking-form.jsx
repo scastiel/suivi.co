@@ -4,7 +4,8 @@ var Router = require('react-router');
 var Link = Router.Link;
 
 var TrackingForm = React.createClass({
-	mixins: [ React.addons.LinkedStateMixin ],
+	mixins: [ React.addons.LinkedStateMixin, Router.Navigation ],
+
 	getInitialState: function() {
 		return {
 			trackingNumber: this.props.initialTrackingNumber
@@ -15,8 +16,10 @@ var TrackingForm = React.createClass({
 	},
 	handleFormSubmit: function(event) {
 		event.preventDefault();
-		if (this.beautifyTrackingNumber(this.state.trackingNumber || ''))
-			this.refs.okButton.getDOMNode().click();
+		var tn = this.beautifyTrackingNumber(this.state.trackingNumber || '');
+		if (tn) {
+			this.transitionTo('track', {}, { tn: tn })
+		}
 	},
 	beautifyTrackingNumber: function(trackingNumber) {
 		return trackingNumber
@@ -25,20 +28,19 @@ var TrackingForm = React.createClass({
 	},
 	render: function() {
 		return (
-			<form role="form" className="enterTrackingInfo" onSubmit={this.handleFormSubmit}>
+			<form role="form" className="enterTrackingInfo" onSubmit={this.handleFormSubmit} action={this.makeHref('track')}>
 				<div className="form-group">
 					<label htmlFor="txtTrackingNumber">Votre numéro de colis&nbsp;:</label>
 					
 					<div className="input-group">
-						<input type="text" className="form-control input-lg" name="trackingNumber" id="txtTrackingNumber"
+						<input type="text" className="form-control input-lg" name="tn" id="txtTrackingNumber"
 							placeholder="12345-67890-A" onChange={this.handleTrackingNumberChange}
 							value={this.state.trackingNumber}
 							autoComplete="off" autoCorrect="off" autoCapitalize="off" spellCheck="false"/>
 						<span className="input-group-btn">
-					    	<Link ref="okButton" activeClassName="" className={"btn btn-default btn-lg" + (this.beautifyTrackingNumber(this.state.trackingNumber || '') ? '' : ' disabled')}
-					    	      to="track" params={{trackingNumber: this.beautifyTrackingNumber(this.state.trackingNumber || '')}}>
+							<button type="submit" ref="okButton" className={"btn btn-default btn-lg" + (this.beautifyTrackingNumber(this.state.trackingNumber || '') ? '' : ' disabled')}>
 					    		Valider
-					    	</Link>
+							</button>
 					    </span>
 					</div>
 				</div>

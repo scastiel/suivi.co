@@ -15,7 +15,7 @@ var TrackingContainer = React.createClass({
 			<div>
 				<Title/>
 				<section id="trackingNumberForm">
-					<TrackingForm initialTrackingNumber={this.getParams().trackingNumber}/>
+					<TrackingForm initialTrackingNumber={this.getQuery().tn}/>
 				</section>
 				<section id="trackingLinesSection">
 					<RouteHandler/>
