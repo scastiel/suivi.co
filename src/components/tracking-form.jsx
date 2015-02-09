@@ -15,7 +15,7 @@ var TrackingForm = React.createClass({
 	},
 	handleFormSubmit: function(event) {
 		event.preventDefault();
-		if (this.beautifyTrackingNumber(this.state.trackingNumber))
+		if (this.beautifyTrackingNumber(this.state.trackingNumber || ''))
 			this.refs.okButton.getDOMNode().click();
 	},
 	beautifyTrackingNumber: function(trackingNumber) {
@@ -35,7 +35,7 @@ var TrackingForm = React.createClass({
 							value={this.state.trackingNumber}
 							autoComplete="off" autoCorrect="off" autoCapitalize="off" spellCheck="false"/>
 						<span className="input-group-btn">
-					    	<Link ref="okButton" activeClassName="" className={"btn btn-default btn-lg" + (this.state.trackingNumber ? '' : ' disabled')}
+					    	<Link ref="okButton" activeClassName="" className={"btn btn-default btn-lg" + (this.beautifyTrackingNumber(this.state.trackingNumber || '') ? '' : ' disabled')}
 					    	      to="track" params={{trackingNumber: this.beautifyTrackingNumber(this.state.trackingNumber || '')}}>
 					    		Valider
 					    	</Link>
