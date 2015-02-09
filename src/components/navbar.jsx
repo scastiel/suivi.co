@@ -18,20 +18,20 @@ var Navbar = React.createClass({
 							<span className="icon-bar"></span>
 							<span className="icon-bar"></span>
 						</button>
-						<Link to="/" className="navbar-brand">
+						<Link to="app" className="navbar-brand" activeClassName="">
 							<img src="/assets/logo.png" className="logo" alt="Suivez votre colis"/>
 						</Link>
 					</div>
 					<div id="navbar" className="navbar-collapse collapse">
 						<ul className="nav navbar-nav">
 							<li>
-								<Link to="/">Suivez votre colis</Link>
+								<Link to="app" activeClassName="">Suivez votre colis</Link>
 							</li>
 							<li>
-								<Link to="/concept">Comment ça marche ?</Link>
+								<Link to="concept">Comment ça marche ?</Link>
 							</li>
 							<li>
-								<Link to="/carriers">Les transporteurs</Link>
+								<Link to="carriers">Les transporteurs</Link>
 							</li>
 						</ul>
 					</div>

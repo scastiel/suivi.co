@@ -18,7 +18,7 @@ var ConceptPage = React.createClass({
 				et ce indépendamment du transporteur. Tout ce dont vous avez besoin est votre numéro
 				de colis, nous nous chargeons du reste :-)</p>
 
-				<Link className="center-block" to="/carriers">Découvrez les transporteurs que nous prenons en charge actuellement.</Link>
+				<Link className="center-block" to="carriers">Découvrez les transporteurs que nous prenons en charge actuellement.</Link>
 			</Page>
 		);
 	}

@@ -21,7 +21,7 @@ var Home = React.createClass({
 						Pour cela, saisissez ci-dessus le numéro de colis fourni par le transporteur
 						ou le marchand, puis cliquez sur <em>Valider</em>.
 					</p>
-					<Link className="center-block" to="/concept">En savoir plus</Link>
+					<Link className="center-block" to="concept">En savoir plus</Link>
 				</div>
 
 				<div className="well">
