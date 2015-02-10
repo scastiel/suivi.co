@@ -6,6 +6,7 @@ var $ = require('jquery');
 var Line = require('./line.jsx');
 var NewsletterLine = require('./newsletter-line.jsx');
 var TrackingResultError = require('./tracking-result-error.jsx');
+var AdsenseLine = require('./adsense-line.jsx');
 
 var TrackingResult = React.createClass({
 
@@ -98,6 +99,8 @@ var TrackingResult = React.createClass({
 			lineComponents.splice(2, 0,
 				<NewsletterLine key="newsletter"/>
 			);
+			lineComponents.splice(0, 0,
+				<AdsenseLine key="adsense"/>);
 
 			return (
 				<div>
