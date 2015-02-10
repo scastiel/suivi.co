@@ -11,10 +11,6 @@ module.exports = function(grunt) {
         files: 'package.json',
         tasks: ['browserify']
       },
-      bower_components: {
-        files: 'bower.json',
-        tasks: ['concat']
-      },
       style: {
         files: 'style/**/*',
         tasks: ['concat', 'sass', 'cssmin']
