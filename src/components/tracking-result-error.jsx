@@ -1,7 +1,6 @@
 
 var React = require('react');
 var Router = require('react-router');
-var Link = Router.Link;
 var NewsletterSignupForm = require('./newsletter-signup-form/newsletter-signup-form.jsx');
 
 var TrackingResultError = React.createClass({
@@ -17,7 +16,7 @@ var TrackingResultError = React.createClass({
 						<li>une erreur s'est glissée dans votre saisie du numéro de colis&nbsp;;</li>
 						<li>
 							nous ne gérons pas encore&nbsp;
-							<Link to="/les-transporteurs" title="Les transporteurs pris en charge par Suivi.co">le transporteur</Link>
+							<a href="#les-transporteurs" title="Les transporteurs pris en charge par Suivi.co">le transporteur</a>
 							&nbsp;associé à votre colis.
 						</li>
 					</ul>

@@ -24,11 +24,6 @@ module.exports = (
 			<DefaultRoute handler={Home}/>
 			<Route name="track" path="suivre" handler={TrackingResult} />
 		</Route>
-
-		{/* Pages */}
-		<Route name="concept" path="comment-ca-marche" handler={ConceptPage}/>
-		
-		<Route name="carriers" path="les-transporteurs" handler={CarriersPage}/>
 		
 		<NotFoundRoute name="not-found" handler={NotFound} />
 	</Route>

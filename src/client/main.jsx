@@ -12,3 +12,22 @@ Router.run(routes, Router.HistoryLocation, function (Handler) {
 		ga && ga('send', 'pageview', document.location.pathname)
 	});
 });
+
+var $ = window.jQuery;
+$(document).ready(function() {
+	$('[data-spy="scroll"]').on('activate.bs.scrollspy', function (event) {
+		history.replaceState({}, "", $("a[href^='#']", event.target).attr("href"));
+	});
+	$('a[href^="#"]').on('click',function (e) {
+	    e.preventDefault();
+
+	    var target = this.hash;
+	    var $target = $(target);
+
+	    $('html, body').stop().animate({
+	        'scrollTop': $target.offset().top
+	    }, 900, 'swing', function () {
+	        window.location.hash = target;
+	    });
+	});
+});

@@ -5,18 +5,17 @@ var DocumentTitle = require('react-document-title');
 var Page = React.createClass({
 	render: function() {
 		return (
-			<DocumentTitle title={this.props.title + " – Suivez vos colis sur un site unique – Suivi.co"}>
-				<div className="page">
+			<div>
+				<a name={this.props.id}/>
+				<article className="page" id={this.props.id}>
+					<h2 className="page-header">{this.props.title}</h2>
 					<div className="panel">
 						<div className="panel-body">
-							<div className="page-header">
-								<h2>{this.props.title}</h2>
-							</div>
 							{this.props.children}
 						</div>
 					</div>
-				</div>
-			</DocumentTitle>
+				</article>
+			</div>
 		);
 	}
 });
