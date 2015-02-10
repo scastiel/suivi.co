@@ -5,7 +5,6 @@ var bodyParser = require('body-parser');
 var mongoose = require('mongoose');
 var basicAuth = require('basic-auth');
 var mustacheExpress = require('mustache-express');
-var compression = require('compression')
 
 var React = require('react');
 var Router = require('react-router');
@@ -47,7 +46,6 @@ process.on('SIGINT', function() {
 });
 
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(compression());
 
 app.set('port', (process.env.PORT || 3000));
 app.set('jwtTokenSecret', process.env.JWT_TOKEN_SECRET || '+!5G:RY9*Y6RgQd%LDg(d244;|AqzM_lB/;KKS?}iMt?EZ=C1e1N|x-@i^k;;cv!');

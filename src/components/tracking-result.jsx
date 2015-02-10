@@ -42,9 +42,7 @@ var TrackingResult = React.createClass({
 			$.getJSON(uri)
 				.done(function (results) {
 					var lines, carrier;
-					for (var i in results) {
-						if (!results.hasOwnProperty(i)) continue;
-						var result = results[i];
+					for (result of results) {
 						if (result.lines !== false) {
 							lines = result.lines;
 							carrier = result.carrier;

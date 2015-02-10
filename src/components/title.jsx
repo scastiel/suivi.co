@@ -10,7 +10,7 @@ var Title = React.createClass({
 			<div>
 				<h1 className="big-title">
 					<Link activeClassName="" to="app">
-						<span className="logo"/>
+						<img src="/assets/logo.png" className="logo"/>
 						Suivi.co
 						<small>Le suivi de vos colis sur un site unique</small>
 					</Link>

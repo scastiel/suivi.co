@@ -5,7 +5,7 @@ module.exports = function(grunt) {
     watch: {
       scripts: {
         files: 'src/**/*',
-        tasks: ['browserify', 'uglify']
+        tasks: ['browserify']
       },
       node_modules: {
         files: 'package.json',
@@ -17,7 +17,7 @@ module.exports = function(grunt) {
       },
       style: {
         files: 'style/**/*',
-        tasks: ['concat', 'sass', 'cssmin']
+        tasks: ['concat', 'sass']
       },
       assets: {
         files: 'assets/**/*',
@@ -53,34 +53,11 @@ module.exports = function(grunt) {
       }
     },
 
-    uglify: {
-      dist: {
-        files: {
-          'public/scripts/app.min.js': 'public/scripts/app.js'
-        }
-      }
-    },
-
-    cssmin: {
-      dist: {
-        files: {
-          'public/style/app.min.css': 'public/style/app.css',
-          'public/style/vendor.min.css': 'public/style/vendor.css',
-        }
-      }
-    },
-
     copy: {
       assets: {
         expand: true,
         cwd: 'assets/',
         src: '**',
-        dest: 'public/assets/'
-      },
-      fonts: {
-        expand: true,
-        cwd: 'node_modules/font-awesome/',
-        src: 'fonts/**',
         dest: 'public/assets/'
       }
     }
@@ -92,13 +69,11 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-contrib-sass');
   grunt.loadNpmTasks('grunt-contrib-copy');
-  grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-contrib-cssmin');
 
   grunt.registerTask('default', [
-    'concat', 'browserify', 'uglify', 'sass', 'cssmin', 'copy'
+    'concat', 'browserify', 'sass', 'copy'
   ]);
   grunt.registerTask('heroku', [
-    'concat', 'browserify', 'uglify', 'sass', 'cssmin', 'copy'
+    'concat', 'browserify', 'sass', 'copy'
   ]);
 };
