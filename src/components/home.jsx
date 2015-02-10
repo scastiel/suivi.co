@@ -1,7 +1,6 @@
 
 var React = require('react');
 var Router = require('react-router');
-var Link = Router.Link;
 
 var NewsletterSignupForm = require('./newsletter-signup-form/newsletter-signup-form.jsx');
 
@@ -21,7 +20,7 @@ var Home = React.createClass({
 						Pour cela, saisissez ci-dessus le numéro de colis fourni par le transporteur
 						ou le marchand, puis cliquez sur <em>Valider</em>.
 					</p>
-					<Link className="center-block" to="concept">En savoir plus</Link>
+					<a className="center-block" href="#comment-ca-marche">En savoir plus</a>
 				</div>
 
 				<div className="well">

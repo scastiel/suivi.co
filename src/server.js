@@ -66,9 +66,7 @@ app.use('/newsletter', newsletterRouter);
 var Sitemap = require('express-sitemap');
 var sitemap = new Sitemap({
     map: {
-        '/': ['get'],
-        '/comment-ca-marche': ['get'],
-        '/les-transporteurs': ['get']
+        '/': ['get']
     },
     url: process.env.CANONICAL_HOST
 });

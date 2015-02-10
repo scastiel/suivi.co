@@ -5,6 +5,8 @@ var RouteHandler = Router.RouteHandler;
 
 var TrackingForm = require('./tracking-form.jsx');
 var Title = require('./title.jsx');
+var CarriersPage = require('./carriers-page.jsx');
+var ConceptPage = require('./concept-page.jsx');
 
 var TrackingContainer = React.createClass({
 
@@ -20,6 +22,8 @@ var TrackingContainer = React.createClass({
 				<section id="trackingLinesSection">
 					<RouteHandler/>
 				</section>
+				<ConceptPage/>
+				<CarriersPage/>
 			</div>
 		)
 	}

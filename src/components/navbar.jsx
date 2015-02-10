@@ -9,7 +9,7 @@ var Navbar = React.createClass({
 
 		return (
 
-			<nav className="navbar navbar-default navbar-static-top">
+			<nav className="navbar navbar-default navbar-fixed-top">
 				<div className="container">
 					<div className="navbar-header">
 						<button type="button" className="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
@@ -19,19 +19,19 @@ var Navbar = React.createClass({
 							<span className="icon-bar"></span>
 						</button>
 						<Link to="app" className="navbar-brand" activeClassName="">
-							<span className="logo" alt="Suivez votre colis"/>
+							<span className="logo" alt="Accueil – Suivi.co"/>
 						</Link>
 					</div>
 					<div id="navbar" className="navbar-collapse collapse">
 						<ul className="nav navbar-nav">
 							<li>
-								<Link to="app" activeClassName="">Suivez votre colis</Link>
+								<a href="#suivre">Suivez votre colis</a>
 							</li>
 							<li>
-								<Link to="concept">Comment ça marche ?</Link>
+								<a href="#comment-ca-marche">Comment ça marche ?</a>
 							</li>
 							<li>
-								<Link to="carriers">Les transporteurs</Link>
+								<a href="#les-transporteurs">Les transporteurs</a>
 							</li>
 						</ul>
 						<ul className="nav navbar-nav navbar-right">

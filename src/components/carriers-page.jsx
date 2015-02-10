@@ -6,7 +6,7 @@ var NewsletterSignupForm = require('./newsletter-signup-form/newsletter-signup-f
 var CarriersPage = React.createClass({
 	render: function() {
 		return (
-			<Page title="Les transporteurs pris en charge">
+			<Page title="Les transporteurs pris en charge" id="les-transporteurs">
 				<p>Les transporteurs actuellement gérés sont les suivants :</p>
 
 				<ul className="list-inline carriers-logo-list center">

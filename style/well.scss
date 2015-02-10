@@ -22,25 +22,32 @@
 	text-align: justify;
 }
 
-.panel {
-	text-align: justify;
-	font-size: large;
+.page {
 
 	.page-header {
-		margin-top: 0;
-		text-align: left;
-
-		h2 {
-			color: #666;
-		}
+		font-family: 'Contrail One',cursive;
+		color: #666666;
+		max-width: 520px;
+		margin-left: auto;
+		margin-right: auto;
+		margin-bottom: -16px;
+		padding-top: 96px;
+		padding-left: 13px;
 	}
 
-	.carriers-logo-list {
-		text-align: center; 
+	.panel {
+		margin-left: auto;
+		margin-right: auto;
+		text-align: justify;
+		font-size: large;
 
-		img {
-			-webkit-filter: grayscale(100%) contrast(39%) brightness(142%);
-			filter: grayscale(100%) contrast(39%) brightness(142%);
+		.carriers-logo-list {
+			text-align: center; 
+
+			img {
+				-webkit-filter: grayscale(100%) contrast(39%) brightness(142%);
+				filter: grayscale(100%) contrast(39%) brightness(142%);
+			}
 		}
 	}
 }
