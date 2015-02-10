@@ -1,13 +1,14 @@
 
-@import url("//fonts.googleapis.com/css?family=Source+Sans+Pro:300,400|Contrail+One");
-
-
+@import 'google-fonts';
 @import 'login-form';
 @import 'nav';
 @import 'loading';
 @import 'well';
 @import 'footer';
 @import 'newsletter-signup-form';
+
+$fa-font-path: "/assets/fonts";
+@import '../node_modules/font-awesome/scss/font-awesome';
 
 * {
 	font-family: 'Source Sans Pro', sans-serif;
@@ -59,13 +60,36 @@ h1.small-title small {
 }
 .logo {
 	height: 50px;
+	width: 68px;
 	vertical-align: baseline;
 	margin-bottom: -2px;
 	margin-right: 15px;
+	display: inline-block;
 }
 h1.small-title .logo {
 	height: 30px;
 }
+
+
+@media only screen and (-webkit-max-device-pixel-ratio: 1.5),
+ only screen and (-o-max-device-pixel-ratio: 3/2),
+ only screen and (max--moz-device-pixel-ratio: 1.5),
+ only screen and (max-device-pixel-ratio: 1.5) {
+  .logo {
+    background: url(/assets/logo-68x50.png) no-repeat;
+  }
+}
+@media only screen and (-webkit-min-device-pixel-ratio: 1.5),
+ only screen and (-o-min-device-pixel-ratio: 3/2),
+ only screen and (min--moz-device-pixel-ratio: 1.5),
+ only screen and (min-device-pixel-ratio: 1.5) {
+  .logo {
+    background: url(/assets/logo-68x50@2x.png) no-repeat;
+    background-size: 68px 50px;
+  }
+}
+
+
 .inline-input {
 	display: inline-block;
 	width: auto;
