@@ -7,6 +7,7 @@ var TrackingForm = require('./tracking-form.jsx');
 var Title = require('./title.jsx');
 var CarriersPage = require('./carriers-page.jsx');
 var ConceptPage = require('./concept-page.jsx');
+var Adsense = require('./adsense.jsx');
 
 var TrackingContainer = React.createClass({
 
@@ -22,6 +23,8 @@ var TrackingContainer = React.createClass({
 				<section id="trackingLinesSection">
 					<RouteHandler/>
 				</section>
+				<Adsense adClient="ca-pub-9817974754702006" adSlot="7293197376" width={320} height={100}
+					placeholder="http://placehold.it/320x100/eff2f3/337ab7&amp;text=Adsense"/>
 				<ConceptPage/>
 				<CarriersPage/>
 			</div>
