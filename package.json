@@ -9,7 +9,7 @@
     "node": "0.11.x"
   },
   "scripts": {
-    "start": "node --harmony src/server.js"
+    "start": "node --harmony src/server/index.js"
   },
   "dependencies": {
     "basic-auth": "^1.0.0",
