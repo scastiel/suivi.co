@@ -8,6 +8,8 @@ var NewsletterLine = require('./newsletter-line.jsx');
 var TrackingResultError = require('./tracking-result-error.jsx');
 var AdsenseLine = require('./adsense-line.jsx');
 
+var displayAds = typeof window !== "undefined" ? window.displayAds : require('../config').displayAds;
+
 var TrackingResult = React.createClass({
 
 	mixins: [Router.State],
@@ -99,8 +101,10 @@ var TrackingResult = React.createClass({
 			lineComponents.splice(2, 0,
 				<NewsletterLine key="newsletter"/>
 			);
-			lineComponents.splice(0, 0,
-				<AdsenseLine key="adsense"/>);
+			if (displayAds === "yes" || displayAds === "placeholder") {
+				lineComponents.splice(0, 0,
+					<AdsenseLine key="adsense"/>);
+			}
 
 			return (
 				<div>

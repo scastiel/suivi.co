@@ -12,13 +12,15 @@ var Adsense = React.createClass({
 	render: function() {
 
 		var adComponent;
-		if (displayAds) {
+		if (displayAds === "yes") {
 			adComponent = <ins className="adsbygoogle"
 				     style={{"display": "inline-block", "width": this.props.width, "height": this.props.height}}
 				     data-ad-client={this.props.adClient}
 				     data-ad-slot={this.props.adSlot}/>;
-		} else {
+		} else if (displayAds === "placeholder") {
 			adComponent = <img src={this.props.placeholder}/>;
+		} else {
+			adComponent = <span/>;
 		}
 
 		return (
