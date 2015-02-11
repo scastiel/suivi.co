@@ -3,7 +3,7 @@ var React = require('react');
 var Router = require('react-router');
 var DocumentTitle = require('react-document-title');
 
-var routes = require('./react-routes.jsx');
+var routes = require('../../lib/react-routes.jsx');
 
 module.exports = function(app) {
 	return function (req, res) {
@@ -15,7 +15,7 @@ module.exports = function(app) {
 			res.render('index', {
 				title: title,
 				content: content,
-				config: require('../config')
+				config: require('../../lib/config')
 			});
 		});
 	};

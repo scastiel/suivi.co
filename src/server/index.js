@@ -54,7 +54,7 @@ app.set('jwtTokenSecret', process.env.JWT_TOKEN_SECRET || '+!5G:RY9*Y6RgQd%LDg(d
 
 app.engine('html', mustacheExpress());
 app.set('view engine', 'html');
-app.set('views', __dirname + '/../views/');
+app.set('views', __dirname + '/../../views/');
 
 var apiRoutes = require('./routes/api.js');
 app.use('/api', apiRoutes);
@@ -77,7 +77,7 @@ app.get('/robots.txt', function(req, res) {
     sitemap.TXTtoWeb(res);
 });
 
-app.use(express.static(__dirname + '/../public'));
+app.use(express.static(__dirname + '/../../public'));
 
 var reactRoute = require('./routes/site.jsx')(app);
 app.use(reactRoute);

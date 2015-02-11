@@ -5,7 +5,7 @@ var displayAds = typeof window !== "undefined" ? window.displayAds : require('..
 var Adsense = React.createClass({
 
 	componentDidMount: function() {
-		if (displayAds)
+		if (displayAds === "yes")
 			(adsbygoogle = window.adsbygoogle || []).push({});
 	},
 
