@@ -6,7 +6,7 @@ module.exports = function(app) {
 	app.get('/les-transporteurs', function (req, res) { res.redirect(301, '/#les-transporteurs'); });
 
 	var trackRoute = function (req, res) {
-		res.redirect(301, '/?tn=' + req.params.trackingNumber);
+		res.redirect(301, '/suivre?tn=' + req.params.trackingNumber);
 	};
 
 	app.get('/suivre/:trackingNumber', trackRoute);
