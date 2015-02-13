@@ -56,6 +56,8 @@ app.engine('html', mustacheExpress());
 app.set('view engine', 'html');
 app.set('views', __dirname + '/../../views/');
 
+require('./routes/compat')(app);
+
 var apiRoutes = require('./routes/api.js');
 app.use('/api', apiRoutes);
 
