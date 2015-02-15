@@ -3,6 +3,7 @@ var React = require('react');
 var Router = require('react-router');
 
 var NewsletterSignupForm = require('./newsletter-signup-form/newsletter-signup-form.jsx');
+var Adsense = require('./adsense.jsx');
 
 var Home = React.createClass({
 
@@ -10,6 +11,11 @@ var Home = React.createClass({
 
 		return (
 			<div>
+
+				<div className="home-adsense">
+					<Adsense adClient="ca-pub-9817974754702006" adSlot="7293197376" width={320} height={100}
+						placeholder="http://placehold.it/320x100/eff2ff/337ab7&amp;text=Adsense"/>
+				</div>
 
 				<div className="well well-lg">
 					<p>
