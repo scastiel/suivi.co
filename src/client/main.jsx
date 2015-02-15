@@ -16,7 +16,10 @@ Router.run(routes, Router.HistoryLocation, function (Handler) {
 var $ = window.jQuery;
 $(document).ready(function() {
 	$('[data-spy="scroll"]').on('activate.bs.scrollspy', function (event) {
-		history.replaceState({}, "", $("a[href^='#']", event.target).attr("href"));
+		var href = $("a[href^='#']", event.target).attr("href");
+		if (href) {
+			history.replaceState({}, "", href);
+		}
 	});
 	$('a[href^="#"]').on('click',function (e) {
 	    e.preventDefault();
