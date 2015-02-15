@@ -13,14 +13,9 @@
 		margin: 0;
 	}
 
-	@media only screen and (-webkit-max-device-pixel-ratio: 1.5),
-	 only screen and (-o-max-device-pixel-ratio: 3/2),
-	 only screen and (max--moz-device-pixel-ratio: 1.5),
-	 only screen and (max-device-pixel-ratio: 1.5) {
-	  .logo {
-	    background: url(/assets/logo-27x20.png) no-repeat;
-	  }
-	}
+  .logo {
+    background: url(/assets/logo-27x20.png) no-repeat;
+  }
 	@media only screen and (-webkit-min-device-pixel-ratio: 1.5),
 	 only screen and (-o-min-device-pixel-ratio: 3/2),
 	 only screen and (min--moz-device-pixel-ratio: 1.5),
