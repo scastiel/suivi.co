@@ -2,6 +2,7 @@
 var React = require('react');
 var Router = require('react-router');
 var NewsletterSignupForm = require('./newsletter-signup-form/newsletter-signup-form.jsx');
+var Adsense = require('./adsense.jsx');
 
 var TrackingResultError = React.createClass({
 
@@ -26,6 +27,8 @@ var TrackingResultError = React.createClass({
 							sebastien@suivi.co
 						</a>
 					</p>
+					<Adsense adClient="ca-pub-9817974754702006" adSlot="5228891372" width={234} height={60}
+						placeholder="http://placehold.it/234x60/f7f7f7/337ab7&amp;text=Adsense"/>
 					<p>
 						Pour être informé des évolutions de Suivi.co et notamment des nouveaux
 						transporteurs que nous prenons en charge, inscrivez-vous à notre newsletter&nbsp;:
