@@ -8,6 +8,16 @@ var TrackingResultError = React.createClass({
 
 	render: function() {
 
+		var random = Math.floor(Math.random() * 2) + 1;
+		switch (random) {
+			case 1:
+				adSenseComponent = <Adsense adClient="ca-pub-9817974754702006" adSlot="2862350979"/>
+				break;
+			case 2:
+				adSenseComponent = <Adsense adClient="ca-pub-9817974754702006" adSlot="5228891372" width={234} height={60}/>
+				break;
+		}
+
 		return (
 			<div>
 				<div className="well well-left">
@@ -27,8 +37,7 @@ var TrackingResultError = React.createClass({
 							sebastien@suivi.co
 						</a>
 					</p>
-					<Adsense adClient="ca-pub-9817974754702006" adSlot="2862350979" 
-						placeholder="http://placehold.it/234x60/f7f7f7/337ab7&amp;text=Adsense"/>
+					{adSenseComponent}
 					<p>
 						Pour être informé des évolutions de Suivi.co et notamment des nouveaux
 						transporteurs que nous prenons en charge, inscrivez-vous à notre newsletter&nbsp;:
