@@ -9,7 +9,7 @@ var Line = React.createClass({
 		if (typeof this.props.line.date === "object") {
 			dateComponent = <img className="line-data" src={this.props.line.date.content}/>;
 		} else {
-			dateComponent = <span>{this.props.line.date}</span>;
+			dateComponent = <span>{this.props.line.date + (this.props.line.time ? ' à ' + this.props.line.time : '')}</span>;
 		}
 		
 		var locationComponent;
