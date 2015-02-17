@@ -43,6 +43,12 @@ function submitTrackingForm (trackingNumber, homePageBody) {
 	});
 }
 
+function capitalizeEachWord(str) {
+	return str.replace(/\w\S*/g, function(txt) {
+		return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+	});
+}
+
 function extractTrackingLinesFromPage (body) {
 	return new Promise(function (fulfill, reject) {
 		var parsedHTML = $.load(body);
@@ -59,10 +65,11 @@ function extractTrackingLinesFromPage (body) {
 			var locationLabel = $(tr).find('td[headers=envoisCol2]').html().split("<br>");
 			var line = {
 				date: dateTime[0].replace(/^(?:lun|mar|mer|jeu|ven|sam|dim)\s*/, ''),
-				time: dateTime[1],
+				time: dateTime[1].replace(/:/, 'h'),
 				location: entities.decode(locationLabel[0]),
 				label: entities.decode(locationLabel[1])
 			};
+			line.location = capitalizeEachWord(line.location.replace(/\s*CHRONOPOST$/i, ''));
 			lines.push(line);
 		});
 		fulfill(lines);
