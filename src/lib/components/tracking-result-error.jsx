@@ -27,7 +27,7 @@ var TrackingResultError = React.createClass({
 							sebastien@suivi.co
 						</a>
 					</p>
-					<Adsense adClient="ca-pub-9817974754702006" adSlot="5228891372" width={234} height={60}
+					<Adsense adClient="ca-pub-9817974754702006" adSlot="2862350979" 
 						placeholder="http://placehold.it/234x60/f7f7f7/337ab7&amp;text=Adsense"/>
 					<p>
 						Pour être informé des évolutions de Suivi.co et notamment des nouveaux
