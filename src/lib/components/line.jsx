@@ -15,7 +15,7 @@ var Line = React.createClass({
 		var locationComponent;
 		if (typeof this.props.line.location === "object") {
 			locationComponent = <img className="line-data" src={this.props.line.location.content}/>;
-		} else {
+		} else if (this.props.line.location) {
 			locationComponent = <span>{this.props.line.location}</span>;
 		}
 		
@@ -29,9 +29,9 @@ var Line = React.createClass({
 		return (
 			<li className="list-group-item">
 				<div className="row">
-					<span className="col-xs-6 col-sm-3 tracking-date">{dateComponent}</span>
-					<span className="col-xs-6 col-sm-3 tracking-location">{locationComponent}</span>
-					<span className="col-xs-12 col-sm-6 tracking-label">{labelComponent}</span>
+					<span className={(locationComponent ? "col-xs-6 col-sm-3" : "col-xs-12 col-sm-3") + " tracking-date"}>{dateComponent}</span>
+					<span className={(locationComponent ? "col-xs-6 col-sm-3" : "hidden") + " tracking-location"}>{locationComponent}</span>
+					<span className={(locationComponent ? "col-xs-12 col-sm-6" : "col-xs-12 col-sm-9") + " tracking-label"}>{labelComponent}</span>
 				</div>
 			</li>
 		);

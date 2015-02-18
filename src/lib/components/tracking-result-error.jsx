@@ -2,21 +2,10 @@
 var React = require('react');
 var Router = require('react-router');
 var NewsletterSignupForm = require('./newsletter-signup-form/newsletter-signup-form.jsx');
-var Adsense = require('./adsense.jsx');
 
 var TrackingResultError = React.createClass({
 
 	render: function() {
-
-		var random = Math.floor(Math.random() * 2) + 1;
-		switch (random) {
-			case 1:
-				adSenseComponent = <Adsense adClient="ca-pub-9817974754702006" adSlot="2862350979"/>
-				break;
-			case 2:
-				adSenseComponent = <Adsense adClient="ca-pub-9817974754702006" adSlot="5228891372" width={234} height={60}/>
-				break;
-		}
 
 		return (
 			<div>
@@ -37,7 +26,6 @@ var TrackingResultError = React.createClass({
 							sebastien@suivi.co
 						</a>
 					</p>
-					{adSenseComponent}
 					<p>
 						Pour être informé des évolutions de Suivi.co et notamment des nouveaux
 						transporteurs que nous prenons en charge, inscrivez-vous à notre newsletter&nbsp;:
