@@ -103,6 +103,9 @@ h1.small-title .logo {
 #trackingLinesSection .loading, #trackingLinesSection .error {
 	text-align: center;
 }
+.tracking-label span {
+	white-space: pre-line;
+}
 img.line-data {
 	filter: contrast(112%);
 	-webkit-filter: contrast(112%);
