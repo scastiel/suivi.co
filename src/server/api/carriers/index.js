@@ -7,7 +7,8 @@ function CarrierFactory() {
 		'ups': 'UPS',
 		'chronopost': 'Chronopost',
 		'postnl': 'PostNL',
-		'usps': 'USPS'
+		'usps': 'USPS',
+		'royalmail': 'Royal Mail'
 	};
 	return this;
 }
