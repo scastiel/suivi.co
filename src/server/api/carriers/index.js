@@ -6,7 +6,8 @@ function CarrierFactory() {
 		'colissimo': 'Colisimmo',
 		'ups': 'UPS',
 		'chronopost': 'Chronopost',
-		'postnl': 'PostNL'
+		'postnl': 'PostNL',
+		'usps': 'USPS'
 	};
 	return this;
 }
