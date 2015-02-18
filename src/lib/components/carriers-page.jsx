@@ -13,6 +13,7 @@ var CarriersPage = React.createClass({
 					<li><img src="/assets/logo-colissimo.png" alt="Colissimo"/></li>
 					<li><img src="/assets/logo-chronopost.png" alt="Chronopost"/></li>
 					<li><img src="/assets/logo-ups.png" alt="UPS"/></li>
+					<li><img src="/assets/logo-postnl.png" alt="PostNL"/></li>
 				</ul>
 
 				<p><strong>Suivi.co</strong> est actuellement en phase de développement, c'est pourquoi tous les transporteurs ne sont pas

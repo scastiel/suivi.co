@@ -109,6 +109,7 @@ api.get('/track/:carrierCode/:trackingNumber', [ logRequestForUser ], function (
 			remplaceImagePathsByDataUrlInLines(lines);
 			res.send(lines);
 		}, function(error) {
+			console.log(error);
 			res.status(400).send({ error: { message: error } });
 		});
 	}
