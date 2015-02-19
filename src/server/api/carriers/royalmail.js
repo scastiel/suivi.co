@@ -8,12 +8,15 @@ function openTrackingPage (trackingNumber) {
 	return new Promise(function (resolve, reject) {
 		
 		request
-			.post('https://www.royalmail.com/track-your-item', { form: {
-				tracking_number: trackingNumber,
-				op: 'Track item',
-				form_build_id: 'form-b8944419f737356550bc0b6c2323615d',
-				form_id: 'rml_track_trace_search_form'
-			}})
+			.post('https://www.royalmail.com/track-your-item', {
+				timeout: 5000,
+				form: {
+					tracking_number: trackingNumber,
+					op: 'Track item',
+					form_build_id: 'form-b8944419f737356550bc0b6c2323615d',
+					form_id: 'rml_track_trace_search_form'
+				}
+			})
 			.on('response', function(response) {
 				var body = '';
 		        response.setEncoding('utf8');
