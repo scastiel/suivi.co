@@ -27,7 +27,7 @@ function openTrackingPage (trackingNumber) {
 }
 
 function removeExtraSpaces(str) {
-	return str.trim().replace(/\s+/, ' ');
+	return str.trim().replace(/\s+/g, ' ');
 }
 
 function extractTrackingLinesFromPage (body) {
@@ -39,11 +39,11 @@ function extractTrackingLinesFromPage (body) {
 		parsedHTML('#tc-hits tr.detail-wrapper').map(function (i, tr) {
 
 			var dateString = removeExtraSpaces($(tr).find('td:nth-child(1)').text());
-			var date = moment(dateString);
+			var date = moment(dateString, 'MMM D, YYYY , h:m a', 'en');
 
 			var line = {
     			date: date.format('DD/MM/YYYY'),
-    			time: date.format('HH:mm'),
+    			time: date.format('HH[h]mm'),
     			label: removeExtraSpaces($(tr).find('td:nth-child(2)').text()),
     			location: removeExtraSpaces($(tr).find('td:nth-child(3)').text())
     		};
