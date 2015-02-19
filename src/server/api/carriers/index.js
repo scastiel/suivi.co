@@ -5,10 +5,10 @@ function CarrierFactory() {
 	this.carriers = {
 		'colissimo': 'Colisimmo',
 		'ups': 'UPS',
-		'chronopost': 'Chronopost',
-		'postnl': 'PostNL',
-		'usps': 'USPS',
-		'royalmail': 'Royal Mail'
+		'chronopost': 'Chronopost'
+		//'postnl': 'PostNL',
+		//'usps': 'USPS',
+		//'royalmail': 'Royal Mail'
 	};
 	return this;
 }
