@@ -5,7 +5,7 @@ function CarrierFactory() {
 	this.carriers = {
 		'colissimo': 'Colisimmo',
 		'ups': 'UPS',
-		'chronopost': 'Chronopost'
+		'chronopost': 'Chronopost',
 		'postnl': 'PostNL',
 		'usps': 'USPS',
 		'royalmail': 'Royal Mail'
