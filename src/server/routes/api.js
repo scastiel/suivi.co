@@ -48,12 +48,17 @@ api.get('/guess-carrier/:trackingNumber', function (req, res, next) {
 
 function extractTrackingLinesForCarrier(trackingNumber, carrier) {
 	return new Promise(function (resolve, reject) {
+		console.log("Tracking " + trackingNumber + " at " + carrier.name + "...");
 		carrier.extractTrackingLines(trackingNumber)
 			.then(function(lines) {
+				console.log("Tracking " + trackingNumber + " at " + carrier.name + " : " + (lines.length > 0 ? "OK" : "KO"));
 				remplaceImagePathsByDataUrlInLines(lines);
 				resolve({ carrier: carrier, lines: lines });
 			})
-			.catch(function(err) { resolve({ carrier: carrier, lines: false }); });
+			.catch(function(err) {
+				console.log("Tracking " + trackingNumber + " at " + carrier.name + " : KO (" + err + ")");
+				resolve({ carrier: carrier, lines: false });
+			});
 	});
 }
 
