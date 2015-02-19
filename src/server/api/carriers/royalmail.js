@@ -58,16 +58,20 @@ function extractTrackingLinesFromPage (body) {
 				if (dateElement) {
 					var dateString = $(dateElement[0]).text().replace(/^Last\supdate:\s/, '');
 					var dateObj = moment(dateString, 'D MMM YYYY, h:mA', 'en');
-					date = dateObj.format('DD/MM/YYYY');
-					time = dateObj.format('HH:mm');
+					if (dateObj.isValid()) {
+						date = dateObj.format('DD/MM/YYYY');
+						time = dateObj.format('HH:mm');
+					}
 				}
 
-				line = {
-					date: date,
-					time: time,
-					label: status,
-					location: ''
-				};
+				if (date) {
+					line = {
+						date: date,
+						time: time,
+						label: status,
+						location: ''
+					};
+				}
 
 			}
 		}
