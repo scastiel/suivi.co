@@ -3,6 +3,9 @@
 
 var request = require("request").defaults({ jar: true });
 var $ = require('cheerio');
+var denodeify = require('denodeify');
+var ocr = require('colissimo-ocr');
+// var ocr = require('/Users/sebastien/Documents/chrono-pixels/index.js');
 
 var imageTemp = require('../util/image-temp').defaults({ request: request });
 
@@ -17,7 +20,7 @@ function extractLineDataFromTr (tr) {
 		
 		var labelImg = $(tr).find('td[headers="Libelle"] img');
 		var labelImgUrl = labelImg ? baseUrl + '/portail_colissimo/' + $(labelImg).attr('src') : null;
-		
+
 		var locationImg = $(tr).find('td[headers="site"] img');
 		var locationImgUrl = locationImg ? baseUrl + '/portail_colissimo/' + $(locationImg).attr('src') : null;
 		locationImgUrl = locationImgUrl.replace(/width=\d+/, 'width=145');
@@ -30,7 +33,20 @@ function extractLineDataFromTr (tr) {
 	    			label: { type: 'image', src: imgPaths[1] },
 	    			location: {type: 'image', src: imgPaths[2] }
 	    		};
-	    		fulfill(line);
+
+	    		var guessTextFromImage = denodeify(ocr.guessTextFromImage);
+	    		var promises = [
+	    			guessTextFromImage(line.date.src),
+	    			guessTextFromImage(line.label.src),
+	    			guessTextFromImage(line.location.src),
+	    		];
+	    		Promise.all(promises)
+	    			.then(function(texts) {
+	    				line.date.text = texts[0];
+	    				line.label.text = texts[1];
+	    				line.location.text = texts[2];
+	    				fulfill(line);
+	    			})
 	    	})
 	    	.catch(reject);
 	});

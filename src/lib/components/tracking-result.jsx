@@ -56,6 +56,17 @@ var TrackingResult = React.createClass({
 					}
 					if (lines) {
 						ga && ga('send', 'event', 'tracker', 'track', 'successful');
+
+						for (var i = 0; i < lines.length; i++) {
+							var line = lines[i];
+							if ((typeof line.date === "object" && line.date.text.indexOf('?') >= 0)
+								 || (typeof line.location === "object" && line.location.text.indexOf('?') >= 0)
+								 || (typeof line.label === "object" && line.label.text.indexOf('?') >= 0)) {
+								ga('send', 'event', 'ocr', 'text-recognition-failed', this.getQuery().tn);
+								break;
+							}
+						}
+
 						this.setState({
 							loading: false,
 							lines: lines,

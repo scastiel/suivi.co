@@ -36,7 +36,10 @@ function openTrackingPage (trackingNumber) {
 			        response.on('end', function() {
 			            fulfill(body);
 			        });
-				});
+				})
+				.on('error', function(err) {
+		        	reject(err);
+		        });
 		
 	});
 

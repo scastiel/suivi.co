@@ -4,24 +4,38 @@ var React = require('react');
 var Line = React.createClass({
 	
 	render: function() {
+
+		var containsUnrecognizedText = false;
 		
 		var dateComponent;
 		if (typeof this.props.line.date === "object") {
-			dateComponent = <img className="line-data" src={this.props.line.date.content}/>;
+			// if (this.props.line.date.text.indexOf('?') === -1) {
+				dateComponent = <span>{this.props.line.date.text}</span>;
+			// } else {
+			// 	dateComponent = <img className="line-data" src={this.props.line.date.content}/>;
+			// }
 		} else {
 			dateComponent = <span>{this.props.line.date + (this.props.line.time ? ' à ' + this.props.line.time : '')}</span>;
 		}
 		
 		var locationComponent;
 		if (typeof this.props.line.location === "object") {
-			locationComponent = <img className="line-data" src={this.props.line.location.content}/>;
+			// if (this.props.line.location.text.indexOf('?') === -1) {
+				locationComponent = <span>{this.props.line.location.text}</span>;
+			// } else {
+			// 	locationComponent = <img className="line-data" src={this.props.line.location.content}/>;
+			// }
 		} else if (this.props.line.location) {
 			locationComponent = <span>{this.props.line.location}</span>;
 		}
 		
 		var labelComponent;
 		if (typeof this.props.line.label === "object") {
-			labelComponent = <img className="line-data" src={this.props.line.label.content}/>;
+			// if (this.props.line.label.text.indexOf('?') === -1) {
+				labelComponent = <span>{this.props.line.label.text}</span>;
+			// } else {
+			// 	labelComponent = <img className="line-data" src={this.props.line.label.content}/>;
+			// }
 		} else {
 			labelComponent = <span>{this.props.line.label}</span>;
 		}
