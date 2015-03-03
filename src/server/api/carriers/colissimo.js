@@ -4,6 +4,8 @@
 var request = require("request").defaults({ jar: true });
 var $ = require('cheerio');
 var denodeify = require('denodeify');
+var utf8 = require('utf8');
+var iconv = require('iconv');
 var ocr = require('colissimo-ocr');
 // var ocr = require('/Users/sebastien/Documents/chrono-pixels/index.js');
 
@@ -16,57 +18,71 @@ function extractLineDataFromTr (tr) {
 		var line = {};
 
 		var dateImg = $(tr).find('td[headers="Date"] img');
-		var dateImgUrl = dateImg ? baseUrl + '/portail_colissimo/' + $(dateImg).attr('src') : null;
-		
-		var labelImg = $(tr).find('td[headers="Libelle"] img');
-		var labelImgUrl = labelImg ? baseUrl + '/portail_colissimo/' + $(labelImg).attr('src') : null;
+		if (dateImg.length > 0) {
+			var dateImgUrl = dateImg ? baseUrl + '/portail_colissimo/' + $(dateImg).attr('src') : null;
+			
+			var labelImg = $(tr).find('td[headers="Libelle"] img');
+			var labelImgUrl = labelImg ? baseUrl + '/portail_colissimo/' + $(labelImg).attr('src') : null;
 
-		var locationImg = $(tr).find('td[headers="site"] img');
-		var locationImgUrl = locationImg ? baseUrl + '/portail_colissimo/' + $(locationImg).attr('src') : null;
-		locationImgUrl = locationImgUrl.replace(/width=\d+/, 'width=145');
+			var locationImg = $(tr).find('td[headers="site"] img');
+			var locationImgUrl = locationImg ? baseUrl + '/portail_colissimo/' + $(locationImg).attr('src') : null;
+			locationImgUrl = locationImgUrl.replace(/width=\d+/, 'width=145');
 
-		imageTemp
-			.saveImagesToTempFiles([ dateImgUrl, labelImgUrl, locationImgUrl ], 'png')
-			.then(function (imgPaths) {
-				var line = {
-	    			date: { type: 'image', src: imgPaths[0] },
-	    			label: { type: 'image', src: imgPaths[1] },
-	    			location: {type: 'image', src: imgPaths[2] }
-	    		};
+			imageTemp
+				.saveImagesToTempFiles([ dateImgUrl, labelImgUrl, locationImgUrl ], 'png')
+				.then(function (imgPaths) {
+					var line = {
+		    			date: { type: 'image', src: imgPaths[0] },
+		    			label: { type: 'image', src: imgPaths[1] },
+		    			location: {type: 'image', src: imgPaths[2] }
+		    		};
 
-	    		var guessTextFromImage = denodeify(ocr.guessTextFromImage);
-	    		var promises = [
-	    			guessTextFromImage(line.date.src),
-	    			guessTextFromImage(line.label.src),
-	    			guessTextFromImage(line.location.src),
-	    		];
-	    		Promise.all(promises)
-	    			.then(function(texts) {
-	    				line.date.text = texts[0];
-	    				line.label.text = texts[1];
-	    				line.location.text = texts[2];
-	    				fulfill(line);
-	    			})
-	    	})
-	    	.catch(reject);
+		    		var guessTextFromImage = denodeify(ocr.guessTextFromImage);
+		    		var promises = [
+		    			guessTextFromImage(line.date.src),
+		    			guessTextFromImage(line.label.src),
+		    			guessTextFromImage(line.location.src),
+		    		];
+		    		Promise.all(promises)
+		    			.then(function(texts) {
+		    				line.date.text = texts[0];
+		    				line.label.text = texts[1];
+		    				line.location.text = texts[2];
+		    				fulfill(line);
+		    			})
+		    	})
+		    	.catch(reject);
+		} else {
+			var line = {
+				date: $(tr).find('td[headers="Date"]').text().trim(),
+    			label: $(tr).find('td[headers="Libelle"]').text().trim(),
+    			location: $(tr).find('td[headers="site"]').text().trim()
+			};
+			fulfill(line);
+		}
 	});
 }
 
 function extractTrackingLines (trackingNumber) {
 	return new Promise(function (fulfill, reject) {
 		request
-			.post(baseUrl + '/portail_colissimo/suivreResultatStubs.do', { form: {
+			.post(baseUrl + '/portail_colissimo/suivreResultatStubs.do', { encoding: 'binary', form: {
 				parcelnumber: trackingNumber
 			}})
 			.on('response', function(response) {
 				var body = '';
-		        response.setEncoding('utf8');
+		        //response.setEncoding('utf8');
 
 		        response.on('data', function (chunk) {
 		            body += chunk;
 		        });
 
 		        response.on('end', function() {
+
+		        	var ic = new iconv.Iconv('iso-8859-1', 'UTF-8');
+					var buf = ic.convert(new Buffer(body, 'binary'));
+					body = buf.toString('utf-8');
+
 		        	var parsedHTML = $.load(body);
 
 		            var trs = parsedHTML('#resultatSuivreDiv table > tbody > tr');
