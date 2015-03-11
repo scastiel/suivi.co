@@ -4,12 +4,16 @@ Suivi.co
 
 Prerequisites:
 
-  * MongoDB : `mongod --dbpath /path/to/db`
+  * Running MongoDB instance: `mongod --dbpath /path/to/db`
   * Node.js >= 0.11
+  * Grunt (install: `npm install -g grunt`)
 
 Install: `npm install`
 
-Start: `npm start`
+Start:
+
+  * Server: `npm start`
+  * Client resources: `grunt ; grunt watch`
 
 Test tracking numbers:
 
