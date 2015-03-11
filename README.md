@@ -3,6 +3,7 @@ Suivi.co
 ========
 
 Prerequisites:
+
   * MongoDB : `mongod --dbpath /path/to/db`
   * Node.js >= 0.11
 
