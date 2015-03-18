@@ -7,6 +7,7 @@ var TrackingForm = require('./tracking-form.jsx');
 var Title = require('./title.jsx');
 var CarriersPage = require('./carriers-page.jsx');
 var ConceptPage = require('./concept-page.jsx');
+var MobileAppPage = require('./mobile-app-page.jsx');
 
 var TrackingContainer = React.createClass({
 
@@ -24,6 +25,7 @@ var TrackingContainer = React.createClass({
 				</section>
 				<ConceptPage/>
 				<CarriersPage/>
+				<MobileAppPage/>
 			</div>
 		)
 	}

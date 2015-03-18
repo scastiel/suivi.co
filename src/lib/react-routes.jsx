@@ -11,8 +11,6 @@ var Home = require('./components/home.jsx');
 var NotFound = require('./components/not-found.jsx');
 var TrackingContainer = require('./components/tracking-container.jsx');
 var TrackingResult = require('./components/tracking-result.jsx');
-var ConceptPage = require('./components/concept-page.jsx');
-var CarriersPage = require('./components/carriers-page.jsx');
 
 module.exports = (
 	<Route name="app" path="/" handler={App}>

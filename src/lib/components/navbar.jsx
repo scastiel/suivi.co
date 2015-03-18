@@ -33,6 +33,9 @@ var Navbar = React.createClass({
 							<li>
 								<a href="#les-transporteurs">Les transporteurs</a>
 							</li>
+							<li>
+								<a href="#suivi-co-sur-votre-smartphone">L'appli mobile</a>
+							</li>
 						</ul>
 						<ul className="nav navbar-nav navbar-right">
 							<li>
