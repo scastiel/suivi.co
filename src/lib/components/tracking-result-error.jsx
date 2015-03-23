@@ -2,6 +2,7 @@
 var React = require('react');
 var Router = require('react-router');
 var NewsletterSignupForm = require('./newsletter-signup-form/newsletter-signup-form.jsx');
+var Adsense = require('./adsense.jsx');
 
 var TrackingResultError = React.createClass({
 
@@ -10,6 +11,7 @@ var TrackingResultError = React.createClass({
 		return (
 			<div>
 				<div className="well well-left">
+					<Adsense adClient="ca-pub-9817974754702006" adSlot="2862350979"/>
 					<p><strong>Nous ne sommes pas parvenus à récupérer les informations de suivi de votre colis.</strong></p>
 					<p>Plusieurs raisons peuvent expliquer cela&nbsp;:</p>
 					<ul>
