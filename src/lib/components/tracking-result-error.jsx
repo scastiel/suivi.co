@@ -35,6 +35,8 @@ var TrackingResultError = React.createClass({
 								sebastien@suivi.co
 							</a>
 						</p>
+					</div>
+					<div className="list-group-item newsletter">
 						<p>
 							Pour être informé des évolutions de Suivi.co et notamment des nouveaux
 							transporteurs que nous prenons en charge, inscrivez-vous à notre newsletter&nbsp;:
