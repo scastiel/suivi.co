@@ -12,9 +12,6 @@ var TrackingResultError = React.createClass({
 			<div>
 
 				<div className="list-group">
-					<div className="list-group-item list-group-item-adsense">
-						<Adsense adClient="ca-pub-9817974754702006" adSlot="2862350979"/>
-					</div>
 					<div className="list-group-item">
 						<p className="lead">Nous ne sommes pas parvenus à récupérer les informations de suivi de votre colis.</p>
 						<p>Plusieurs raisons peuvent expliquer cela&nbsp;:</p>
@@ -42,6 +39,9 @@ var TrackingResultError = React.createClass({
 							transporteurs que nous prenons en charge, inscrivez-vous à notre newsletter&nbsp;:
 						</p>
 						<NewsletterSignupForm/>
+					</div>
+					<div className="list-group-item list-group-item-adsense">
+						<Adsense adClient="ca-pub-9817974754702006" adSlot="2862350979"/>
 					</div>
 				</div>
 
