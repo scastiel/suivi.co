@@ -21,3 +21,7 @@ Test tracking numbers:
   * `8J00147222648` (Colissimo)
   * `CF216642189US` (Colissimo)
   * `1ZA319f56893407642` (UPS)
+
+## License
+
+See *LICENSE.txt*.
